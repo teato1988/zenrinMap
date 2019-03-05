@@ -1,4 +1,4 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.Manifest;
 import android.app.Activity;
@@ -13,14 +13,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.zdc.android.zms.common.ConnectionResult;
+import com.zdc.android.zms.common.api.GoogleApiClient;
+import com.zdc.android.zms.location.LocationCallback;
+import com.zdc.android.zms.location.LocationRequest;
+import com.zdc.android.zms.location.LocationResult;
+import com.zdc.android.zms.location.LocationServices;
+import com.zdc.android.zms.tasks.OnFailureListener;
+import com.zdc.android.zms.tasks.OnSuccessListener;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -240,7 +240,7 @@ public class PluginLocationService extends CordovaPlugin {
 
       googleApiClient = new GoogleApiClient.Builder(activity)
         .addApi(LocationServices.API)
-        .addConnectionCallbacks(new com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks() {
+        .addConnectionCallbacks(new com.zdc.android.zms.common.api.GoogleApiClient.ConnectionCallbacks() {
 
           @Override
           public void onConnected(Bundle connectionHint) {
@@ -254,7 +254,7 @@ public class PluginLocationService extends CordovaPlugin {
           }
 
         })
-        .addOnConnectionFailedListener(new com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener() {
+        .addOnConnectionFailedListener(new com.zdc.android.zms.common.api.GoogleApiClient.OnConnectionFailedListener() {
 
           @Override
           public void onConnectionFailed(@NonNull ConnectionResult result) {

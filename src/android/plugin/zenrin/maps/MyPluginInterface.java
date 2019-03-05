@@ -1,4 +1,4 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;

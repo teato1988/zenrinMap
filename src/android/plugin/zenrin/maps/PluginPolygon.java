@@ -1,9 +1,9 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Polygon;
-import com.google.android.gms.maps.model.PolygonOptions;
+import com.zdc.android.zms.maps.model.LatLng;
+import com.zdc.android.zms.maps.model.LatLngBounds;
+import com.zdc.android.zms.maps.model.Polygon;
+import com.zdc.android.zms.maps.model.PolygonOptions;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;

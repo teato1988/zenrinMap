@@ -1,4 +1,4 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.os.Bundle;
 import android.util.Log;

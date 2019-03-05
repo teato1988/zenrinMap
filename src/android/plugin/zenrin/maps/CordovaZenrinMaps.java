@@ -1,4 +1,4 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -22,9 +22,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.maps.MapsInitializer;
+import com.zdc.android.zms.common.ConnectionResult;
+import com.zdc.android.zms.common.GooglePlayServicesUtil;
+import com.zdc.android.zms.maps.MapsInitializer;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -45,8 +45,8 @@ import java.util.LinkedHashMap;
 import java.util.Set;
 
 @SuppressWarnings("deprecation")
-public class CordovaGoogleMaps extends CordovaPlugin implements ViewTreeObserver.OnScrollChangedListener{
-  private final String TAG = "GoogleMapsPlugin";
+public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver.OnScrollChangedListener{
+  private final String TAG = "ZenrinMapsPlugin";
   private Activity activity;
   public ViewGroup root;
   public MyPluginLayout mPluginLayout = null;
@@ -65,7 +65,7 @@ public class CordovaGoogleMaps extends CordovaPlugin implements ViewTreeObserver
 
     activity = cordova.getActivity();
     final View view = webView.getView();
-    view.getViewTreeObserver().addOnScrollChangedListener(CordovaGoogleMaps.this);
+    view.getViewTreeObserver().addOnScrollChangedListener(CordovaZenrinMaps.this);
     root = (ViewGroup) view.getParent();
 
     pluginManager = webView.getPluginManager();
@@ -151,7 +151,7 @@ public class CordovaGoogleMaps extends CordovaPlugin implements ViewTreeObserver
                   dialog.dismiss();
                   if (finalIsNeedToUpdate) {
                     try {
-                      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.gms")));
+                      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.zdc.android.zms")));
                     } catch (android.content.ActivityNotFoundException anfe) {
                       activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=appPackageName")));
                     }
@@ -255,23 +255,23 @@ public class CordovaGoogleMaps extends CordovaPlugin implements ViewTreeObserver
       public void run() {
         try {
           if (action.equals("putHtmlElements")) {
-            CordovaGoogleMaps.this.putHtmlElements(args, callbackContext);
+            CordovaZenrinMaps.this.putHtmlElements(args, callbackContext);
           } else if ("clearHtmlElements".equals(action)) {
-            CordovaGoogleMaps.this.clearHtmlElements(args, callbackContext);
+            CordovaZenrinMaps.this.clearHtmlElements(args, callbackContext);
           } else if ("pause".equals(action)) {
-            CordovaGoogleMaps.this.pause(args, callbackContext);
+            CordovaZenrinMaps.this.pause(args, callbackContext);
           } else if ("resume".equals(action)) {
-            CordovaGoogleMaps.this.resume(args, callbackContext);
+            CordovaZenrinMaps.this.resume(args, callbackContext);
           } else if ("getMap".equals(action)) {
-            CordovaGoogleMaps.this.getMap(args, callbackContext);
+            CordovaZenrinMaps.this.getMap(args, callbackContext);
           } else if ("getPanorama".equals(action)) {
-            CordovaGoogleMaps.this.getPanorama(args, callbackContext);
+            CordovaZenrinMaps.this.getPanorama(args, callbackContext);
           } else if ("removeMap".equals(action)) {
-            CordovaGoogleMaps.this.removeMap(args, callbackContext);
+            CordovaZenrinMaps.this.removeMap(args, callbackContext);
           } else if ("backHistory".equals(action)) {
-            CordovaGoogleMaps.this.backHistory(args, callbackContext);
+            CordovaZenrinMaps.this.backHistory(args, callbackContext);
           } else if ("updateMapPositionOnly".equals(action)) {
-            CordovaGoogleMaps.this.updateMapPositionOnly(args, callbackContext);
+            CordovaZenrinMaps.this.updateMapPositionOnly(args, callbackContext);
           }
 
         } catch (JSONException e) {
@@ -454,7 +454,7 @@ public class CordovaGoogleMaps extends CordovaPlugin implements ViewTreeObserver
     PluginMap pluginMap = new PluginMap();
     pluginMap.privateInitialize(mapId, cordova, webView, null);
     pluginMap.initialize(cordova, webView);
-    pluginMap.mapCtrl = CordovaGoogleMaps.this;
+    pluginMap.mapCtrl = CordovaZenrinMaps.this;
     pluginMap.self = pluginMap;
     pluginMap.CURRENT_PAGE_URL = CURRENT_URL;
 
@@ -476,7 +476,7 @@ public class CordovaGoogleMaps extends CordovaPlugin implements ViewTreeObserver
     PluginStreetViewPanorama pluginStreetView = new PluginStreetViewPanorama();
     pluginStreetView.privateInitialize(mapId, cordova, webView, null);
     pluginStreetView.initialize(cordova, webView);
-    pluginStreetView.mapCtrl = CordovaGoogleMaps.this;
+    pluginStreetView.mapCtrl = CordovaZenrinMaps.this;
     pluginStreetView.self = pluginStreetView;
     pluginStreetView.CURRENT_PAGE_URL = CURRENT_URL;
 
@@ -565,7 +565,7 @@ public class CordovaGoogleMaps extends CordovaPlugin implements ViewTreeObserver
         PluginMap pluginMap;
         Collection<PluginEntry> collection =  pluginManager.getPluginEntries();
         for (PluginEntry entry: collection) {
-          if ("plugin.google.maps.PluginMap".equals(entry.pluginClass) && entry.plugin != null) {
+          if ("plugin.zenrin.maps.PluginMap".equals(entry.pluginClass) && entry.plugin != null) {
             pluginMap = (PluginMap)entry.plugin;
             if (pluginMap.map != null) {
 

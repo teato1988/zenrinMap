@@ -1,20 +1,20 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.app.Activity;
 import android.graphics.Point;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
-import com.google.android.gms.maps.StreetViewPanorama;
-import com.google.android.gms.maps.StreetViewPanoramaOptions;
-import com.google.android.gms.maps.StreetViewPanoramaView;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
-import com.google.android.gms.maps.model.StreetViewPanoramaLink;
-import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
-import com.google.android.gms.maps.model.StreetViewPanoramaOrientation;
-import com.google.android.gms.maps.model.StreetViewSource;
+import com.zdc.android.zms.maps.OnStreetViewPanoramaReadyCallback;
+import com.zdc.android.zms.maps.StreetViewPanorama;
+import com.zdc.android.zms.maps.StreetViewPanoramaOptions;
+import com.zdc.android.zms.maps.StreetViewPanoramaView;
+import com.zdc.android.zms.maps.model.LatLng;
+import com.zdc.android.zms.maps.model.StreetViewPanoramaCamera;
+import com.zdc.android.zms.maps.model.StreetViewPanoramaLink;
+import com.zdc.android.zms.maps.model.StreetViewPanoramaLocation;
+import com.zdc.android.zms.maps.model.StreetViewPanoramaOrientation;
+import com.zdc.android.zms.maps.model.StreetViewSource;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -373,7 +373,7 @@ public class PluginStreetViewPanorama extends MyPlugin implements
       jsCallback(
           String.format(
               Locale.ENGLISH,
-              "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName:'%s', callback:'_onPanoramaCameraChange', args: [%s]});}",
+              "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName:'%s', callback:'_onPanoramaCameraChange', args: [%s]});}",
               panoramaId, panoramaId, "panorama_camera_change", jsonStr));
     } catch (Exception e) {
       // ignore
@@ -416,7 +416,7 @@ public class PluginStreetViewPanorama extends MyPlugin implements
       jsCallback(
           String.format(
               Locale.ENGLISH,
-              "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName:'%s', callback:'_onPanoramaLocationChange', args: [%s]});}",
+              "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName:'%s', callback:'_onPanoramaLocationChange', args: [%s]});}",
               panoramaId, panoramaId, "panorama_location_change", jsonStr));
     } catch (Exception e) {
       // ignore
@@ -445,7 +445,7 @@ public class PluginStreetViewPanorama extends MyPlugin implements
       jsCallback(
           String.format(
               Locale.ENGLISH,
-              "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName:'%s', callback:'_onPanoramaEvent', args: [%s]});}",
+              "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName:'%s', callback:'_onPanoramaEvent', args: [%s]});}",
               panoramaId, panoramaId, "panorama_click", jsonStr));
     } catch (Exception e) {
       // ignore

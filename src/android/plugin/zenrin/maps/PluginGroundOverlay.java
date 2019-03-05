@@ -1,13 +1,13 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.GroundOverlay;
-import com.google.android.gms.maps.model.GroundOverlayOptions;
-import com.google.android.gms.maps.model.LatLngBounds;
+import com.zdc.android.zms.maps.model.BitmapDescriptor;
+import com.zdc.android.zms.maps.model.BitmapDescriptorFactory;
+import com.zdc.android.zms.maps.model.GroundOverlay;
+import com.zdc.android.zms.maps.model.GroundOverlayOptions;
+import com.zdc.android.zms.maps.model.LatLngBounds;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;

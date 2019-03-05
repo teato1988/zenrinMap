@@ -1,4 +1,4 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,8 +6,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
+import com.zdc.android.zms.common.ConnectionResult;
+import com.zdc.android.zms.common.GoogleApiAvailability;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -62,9 +62,9 @@ public class Environment extends CordovaPlugin {
       callbackContext.error(errorMsg);
 
       try {
-        cordova.getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.gms")));
+        cordova.getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.zdc.android.zms")));
       } catch (android.content.ActivityNotFoundException anfe) {
-        cordova.getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.google.android.gms")));
+        cordova.getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.zdc.android.zms")));
       }
 
       // End the app (in order to prevent lots of crashes)
@@ -78,9 +78,9 @@ public class Environment extends CordovaPlugin {
     // ------------------------------
     try {
       @SuppressWarnings({ "rawtypes" })
-      Class GoogleMapsClass = Class.forName("com.google.android.gms.maps.GoogleMap");
+      Class ZenrinMapsClass = Class.forName("com.zdc.android.zms.maps.ZenrinMap");
     } catch (Exception e) {
-      Log.e("GoogleMaps", "Error", e);
+      Log.e("ZenrinMaps", "Error", e);
       callbackContext.error(e.getMessage());
       return;
     }
@@ -107,15 +107,15 @@ public class Environment extends CordovaPlugin {
     final int finalBackgroundColor = backgroundColor;
 
 
-    final CordovaGoogleMaps googleMaps = (CordovaGoogleMaps) pluginManager.getPlugin("CordovaGoogleMaps");
+    final CordovaZenrinMaps ZenrinMaps = (CordovaZenrinMaps) pluginManager.getPlugin("CordovaZenrinMaps");
 
     Handler handler = new Handler(cordova.getActivity().getMainLooper());
     handler.postDelayed(new Runnable() {
       public void run() {
-        googleMaps.mPluginLayout.setBackgroundColor(finalBackgroundColor);
+        ZenrinMaps.mPluginLayout.setBackgroundColor(finalBackgroundColor);
         callbackContext.success();
       }
-    }, googleMaps.initialized ? 0 : 250);
+    }, ZenrinMaps.initialized ? 0 : 250);
   }
 
   @SuppressWarnings("unused")

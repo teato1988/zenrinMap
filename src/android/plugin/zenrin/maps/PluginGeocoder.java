@@ -1,10 +1,10 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 
-import com.google.android.gms.maps.model.LatLngBounds;
+import com.zdc.android.zms.maps.model.LatLngBounds;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;

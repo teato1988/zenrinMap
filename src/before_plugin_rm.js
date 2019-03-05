@@ -64,14 +64,14 @@ module.exports = function(ctx) {
     // then insert some dummy data in order to prevent the API_KEY_FOR_ANDROID error.
     //------------------------------------------------------------------------------
     return Q.Promise(function(resolve, reject, notify) {
-      var hasPluginGoogleMaps = false;
+      var hasPluginZenrinMaps = false;
       data.widget.plugin = data.widget.plugin || [];
       data.widget.plugin = data.widget.plugin.map(function(plugin) {
-        if (plugin.$.name !== "cordova-plugin-googlemaps") {
+        if (plugin.$.name !== "cordova-plugin-zenrinmaps") {
           return plugin;
         }
 
-        hasPluginGoogleMaps = true;
+        hasPluginZenrinMaps = true;
         var variables = {};
         plugin.variable = plugin.variable || [];
         plugin.variable.forEach(function(variable) {
@@ -96,10 +96,10 @@ module.exports = function(ctx) {
         return plugin;
       });
 
-      if (!hasPluginGoogleMaps) {
+      if (!hasPluginZenrinMaps) {
         data.widget.plugin.push({
           '$' : {
-            'name': 'cordova-plugin-googlemaps',
+            'name': 'cordova-plugin-zenrinmaps',
             'spec': 'dummy'
           },
           'variable' : [

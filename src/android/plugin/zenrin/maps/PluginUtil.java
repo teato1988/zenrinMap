@@ -1,4 +1,4 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -17,11 +17,11 @@ import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.util.Base64;
 
-import com.google.android.gms.maps.model.IndoorBuilding;
-import com.google.android.gms.maps.model.IndoorLevel;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.LatLngBounds.Builder;
+import com.zdc.android.zms.maps.model.IndoorBuilding;
+import com.zdc.android.zms.maps.model.IndoorLevel;
+import com.zdc.android.zms.maps.model.LatLng;
+import com.zdc.android.zms.maps.model.LatLngBounds;
+import com.zdc.android.zms.maps.model.LatLngBounds.Builder;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaResourceApi;

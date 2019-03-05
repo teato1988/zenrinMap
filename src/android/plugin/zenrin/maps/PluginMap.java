@@ -1,4 +1,4 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -28,35 +28,35 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
-import com.google.android.gms.maps.GoogleMap.OnIndoorStateChangeListener;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.Projection;
-import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.CameraPosition.Builder;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.GroundOverlay;
-import com.google.android.gms.maps.model.IndoorBuilding;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.PointOfInterest;
-import com.google.android.gms.maps.model.Polygon;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.VisibleRegion;
+import com.zdc.android.zms.maps.CameraUpdate;
+import com.zdc.android.zms.maps.CameraUpdateFactory;
+import com.zdc.android.zms.maps.ZDCMap;
+import com.zdc.android.zms.maps.ZDCMap.InfoWindowAdapter;
+import com.zdc.android.zms.maps.ZDCMap.OnIndoorStateChangeListener;
+import com.zdc.android.zms.maps.ZDCMap.OnInfoWindowClickListener;
+import com.zdc.android.zms.maps.ZDCMap.OnMapClickListener;
+import com.zdc.android.zms.maps.ZDCMap.OnMapLongClickListener;
+import com.zdc.android.zms.maps.ZDCMap.OnMarkerClickListener;
+import com.zdc.android.zms.maps.ZDCMap.OnMarkerDragListener;
+import com.zdc.android.zms.maps.ZDCMap.OnMyLocationButtonClickListener;
+import com.zdc.android.zms.maps.ZDCMapOptions;
+import com.zdc.android.zms.maps.MapView;
+import com.zdc.android.zms.maps.OnMapReadyCallback;
+import com.zdc.android.zms.maps.Projection;
+import com.zdc.android.zms.maps.UiSettings;
+import com.zdc.android.zms.maps.model.CameraPosition;
+import com.zdc.android.zms.maps.model.CameraPosition.Builder;
+import com.zdc.android.zms.maps.model.Circle;
+import com.zdc.android.zms.maps.model.GroundOverlay;
+import com.zdc.android.zms.maps.model.IndoorBuilding;
+import com.zdc.android.zms.maps.model.LatLng;
+import com.zdc.android.zms.maps.model.LatLngBounds;
+import com.zdc.android.zms.maps.model.MapStyleOptions;
+import com.zdc.android.zms.maps.model.Marker;
+import com.zdc.android.zms.maps.model.PointOfInterest;
+import com.zdc.android.zms.maps.model.Polygon;
+import com.zdc.android.zms.maps.model.Polyline;
+import com.zdc.android.zms.maps.model.VisibleRegion;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -80,17 +80,17 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     OnInfoWindowClickListener, OnMapClickListener, OnMapLongClickListener,
-    OnMarkerDragListener, GoogleMap.OnMapLoadedCallback,
+    OnMarkerDragListener, ZenrinMap.OnMapLoadedCallback,
     OnMyLocationButtonClickListener, OnIndoorStateChangeListener, InfoWindowAdapter,
-    GoogleMap.OnCameraIdleListener, GoogleMap.OnCameraMoveCanceledListener,
-    GoogleMap.OnCameraMoveListener, GoogleMap.OnCameraMoveStartedListener,
-    GoogleMap.OnInfoWindowLongClickListener, GoogleMap.OnInfoWindowCloseListener,
-    GoogleMap.OnMyLocationClickListener, GoogleMap.OnPoiClickListener,
+    ZenrinMap.OnCameraIdleListener, ZenrinMap.OnCameraMoveCanceledListener,
+    ZenrinMap.OnCameraMoveListener, ZenrinMap.OnCameraMoveStartedListener,
+    ZenrinMap.OnInfoWindowLongClickListener, ZenrinMap.OnInfoWindowCloseListener,
+    ZenrinMap.OnMyLocationClickListener, ZenrinMap.OnPoiClickListener,
     IPluginView{
 
   private LatLngBounds initCameraBounds;
   private Activity activity;
-  public GoogleMap map;
+  public ZenrinMap map;
   private MapView mapView;
   private String mapId;
   private boolean isVisible = true;
@@ -161,7 +161,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
   @TargetApi(Build.VERSION_CODES.HONEYCOMB)
   public void getMap(final JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
-    GoogleMapOptions options = new GoogleMapOptions();
+    ZDCMapOptions options = new ZDCMapOptions();
     JSONObject meta = args.getJSONObject(0);
     mapId = meta.getString("id");
     viewDepth = meta.getInt("depth");
@@ -231,11 +231,11 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     if (!params.has("styles") &&  params.has("mapType")) {
       String typeStr = params.getString("mapType");
       int mapTypeId = -1;
-      mapTypeId = typeStr.equals("MAP_TYPE_NORMAL") ? GoogleMap.MAP_TYPE_NORMAL : mapTypeId;
-      mapTypeId = typeStr.equals("MAP_TYPE_HYBRID") ? GoogleMap.MAP_TYPE_HYBRID : mapTypeId;
-      mapTypeId = typeStr.equals("MAP_TYPE_SATELLITE") ? GoogleMap.MAP_TYPE_SATELLITE : mapTypeId;
-      mapTypeId = typeStr.equals("MAP_TYPE_TERRAIN") ? GoogleMap.MAP_TYPE_TERRAIN : mapTypeId;
-      mapTypeId = typeStr.equals("MAP_TYPE_NONE") ? GoogleMap.MAP_TYPE_NONE : mapTypeId;
+      mapTypeId = typeStr.equals("MAP_TYPE_NORMAL") ? ZenrinMap.MAP_TYPE_NORMAL : mapTypeId;
+      mapTypeId = typeStr.equals("MAP_TYPE_HYBRID") ? ZenrinMap.MAP_TYPE_HYBRID : mapTypeId;
+      mapTypeId = typeStr.equals("MAP_TYPE_SATELLITE") ? ZenrinMap.MAP_TYPE_SATELLITE : mapTypeId;
+      mapTypeId = typeStr.equals("MAP_TYPE_TERRAIN") ? ZenrinMap.MAP_TYPE_TERRAIN : mapTypeId;
+      mapTypeId = typeStr.equals("MAP_TYPE_NONE") ? ZenrinMap.MAP_TYPE_NONE : mapTypeId;
       if (mapTypeId != -1) {
         options.mapType(mapTypeId);
       }
@@ -283,7 +283,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
 
         mapView.getMapAsync(new OnMapReadyCallback() {
           @Override
-          public void onMapReady(GoogleMap googleMap) {
+          public void onMapReady(ZenrinMap ZenrinMap) {
 
             dummyMyLocationButton = new ImageView(activity);
             FrameLayout.LayoutParams lParams = new FrameLayout.LayoutParams((int)(48 * density), (int)(48 * density));
@@ -310,7 +310,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
             });
             mapView.addView(dummyMyLocationButton);
 
-            map = googleMap;
+            map = ZenrinMap;
             projection = map.getProjection();
 
             try {
@@ -319,7 +319,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                 String styles = params.getString("styles");
                 MapStyleOptions styleOptions = new MapStyleOptions(styles);
                 map.setMapStyle(styleOptions);
-                map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                map.setMapType(ZenrinMap.MAP_TYPE_NORMAL);
               }
 
               //controls
@@ -432,7 +432,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                   public void onResult(PluginResult pluginResult) {
 
                     if (initCameraBounds != null) {
-                      map.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+                      map.setOnCameraIdleListener(new ZenrinMap.OnCameraIdleListener() {
                         @Override
                         public void onCameraIdle() {
                           mapView.setVisibility(View.INVISIBLE);
@@ -451,7 +451,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                 });
               } else {
                 if (initCameraBounds != null) {
-                  map.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+                  map.setOnCameraIdleListener(new ZenrinMap.OnCameraIdleListener() {
                     @Override
                     public void onCameraIdle() {
                       PluginMap.this.onCameraIdle();
@@ -465,7 +465,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                   mapView.setVisibility(View.VISIBLE);
                   PluginMap.this.onCameraEvent("camera_end");
                   callbackContext.success();
-                  //if (map.getMapType() == GoogleMap.MAP_TYPE_NONE) {
+                  //if (map.getMapType() == ZenrinMap.MAP_TYPE_NONE) {
                     PluginMap.this.onMapLoaded();
                   //}
                 }
@@ -563,7 +563,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
       mapView.setVisibility(View.VISIBLE);
       mCallback.success();
 
-      //if (map.getMapType() == GoogleMap.MAP_TYPE_NONE) {
+      //if (map.getMapType() == ZenrinMap.MAP_TYPE_NONE) {
         PluginMap.this.onMapLoaded();
       //}
 
@@ -589,7 +589,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
       }
 
       //Log.d("PluginMap", "--> create new instance");
-      String className = "plugin.google.maps.Plugin" + serviceName;
+      String className = "plugin.zenrin.maps.Plugin" + serviceName;
       Class pluginCls = Class.forName(className);
 
       CordovaPlugin plugin = (CordovaPlugin) pluginCls.newInstance();
@@ -643,7 +643,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
         return;
       }
 
-      Class pluginCls = Class.forName("plugin.google.maps.Plugin" + className);
+      Class pluginCls = Class.forName("plugin.zenrin.maps.Plugin" + className);
 
       CordovaPlugin plugin = (CordovaPlugin) pluginCls.newInstance();
       PluginEntry pluginEntry = new PluginEntry(mapId + "-" + className, plugin);
@@ -1179,11 +1179,11 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
         results.MAP_TYPE_ID = -1;
         if (!params.has("styles") && params.has("mapType")) {
           String typeStr = params.getString("mapType");
-          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_NORMAL") ? GoogleMap.MAP_TYPE_NORMAL : results.MAP_TYPE_ID;
-          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_HYBRID") ? GoogleMap.MAP_TYPE_HYBRID : results.MAP_TYPE_ID;
-          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_SATELLITE") ? GoogleMap.MAP_TYPE_SATELLITE : results.MAP_TYPE_ID;
-          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_TERRAIN") ? GoogleMap.MAP_TYPE_TERRAIN : results.MAP_TYPE_ID;
-          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_NONE") ? GoogleMap.MAP_TYPE_NONE : results.MAP_TYPE_ID;
+          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_NORMAL") ? ZenrinMap.MAP_TYPE_NORMAL : results.MAP_TYPE_ID;
+          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_HYBRID") ? ZenrinMap.MAP_TYPE_HYBRID : results.MAP_TYPE_ID;
+          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_SATELLITE") ? ZenrinMap.MAP_TYPE_SATELLITE : results.MAP_TYPE_ID;
+          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_TERRAIN") ? ZenrinMap.MAP_TYPE_TERRAIN : results.MAP_TYPE_ID;
+          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_NONE") ? ZenrinMap.MAP_TYPE_NONE : results.MAP_TYPE_ID;
         }
       }
 
@@ -1253,7 +1253,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
             if (results.styles != null) {
               MapStyleOptions styleOptions = new MapStyleOptions(results.styles);
               map.setMapStyle(styleOptions);
-              map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+              map.setMapType(ZenrinMap.MAP_TYPE_NORMAL);
             } else if (results.MAP_TYPE_ID != -1) {
               map.setMapType(results.MAP_TYPE_ID);
             }
@@ -1628,7 +1628,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
             } catch (Exception e) {
               e.printStackTrace();
             }
-            map.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            map.setOnCameraIdleListener(new ZenrinMap.OnCameraIdleListener() {
               @Override
               public void onCameraIdle() {
                 PluginMap.this.onCameraIdle();
@@ -1664,7 +1664,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
             builder.zoom(map.getCameraPosition().zoom);
             builder.target(map.getCameraPosition().target);
 
-            map.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            map.setOnCameraIdleListener(new ZenrinMap.OnCameraIdleListener() {
               @Override
               public void onCameraIdle() {
                 PluginMap.this.onCameraIdle();
@@ -1930,11 +1930,11 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
 
     int mapTypeId = -1;
     String typeStr = args.getString(0);
-    mapTypeId = typeStr.equals("MAP_TYPE_NORMAL") ? GoogleMap.MAP_TYPE_NORMAL : mapTypeId;
-    mapTypeId = typeStr.equals("MAP_TYPE_HYBRID") ? GoogleMap.MAP_TYPE_HYBRID : mapTypeId;
-    mapTypeId = typeStr.equals("MAP_TYPE_SATELLITE") ? GoogleMap.MAP_TYPE_SATELLITE : mapTypeId;
-    mapTypeId = typeStr.equals("MAP_TYPE_TERRAIN") ? GoogleMap.MAP_TYPE_TERRAIN : mapTypeId;
-    mapTypeId = typeStr.equals("MAP_TYPE_NONE") ? GoogleMap.MAP_TYPE_NONE : mapTypeId;
+    mapTypeId = typeStr.equals("MAP_TYPE_NORMAL") ? ZenrinMap.MAP_TYPE_NORMAL : mapTypeId;
+    mapTypeId = typeStr.equals("MAP_TYPE_HYBRID") ? ZenrinMap.MAP_TYPE_HYBRID : mapTypeId;
+    mapTypeId = typeStr.equals("MAP_TYPE_SATELLITE") ? ZenrinMap.MAP_TYPE_SATELLITE : mapTypeId;
+    mapTypeId = typeStr.equals("MAP_TYPE_TERRAIN") ? ZenrinMap.MAP_TYPE_TERRAIN : mapTypeId;
+    mapTypeId = typeStr.equals("MAP_TYPE_NONE") ? ZenrinMap.MAP_TYPE_NONE : mapTypeId;
 
     if (mapTypeId == -1) {
       callbackContext.error("Unknown MapTypeID is specified:" + typeStr);
@@ -1959,7 +1959,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
    * @param callbackContext
    */
   public void myAnimateCamera(final String mapId, final CameraUpdate cameraUpdate, final int durationMS, final CallbackContext callbackContext) {
-    final GoogleMap.CancelableCallback callback = new GoogleMap.CancelableCallback() {
+    final ZenrinMap.CancelableCallback callback = new ZenrinMap.CancelableCallback() {
       @Override
       public void onFinish() {
         callbackContext.success(ANIMATE_CAMERA_DONE);
@@ -2034,7 +2034,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
       @Override
       public void run() {
 
-        map.snapshot(new GoogleMap.SnapshotReadyCallback() {
+        map.snapshot(new ZenrinMap.SnapshotReadyCallback() {
 
           @Override
           public void onSnapshotReady(final Bitmap image) {
@@ -2340,7 +2340,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     String tmp[] = markerTag.split("_");
     tmp = markerTag.split("-");
     String markerId = tmp[tmp.length - 1];
-    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName: '%s', callback:'_onMarkerEvent', args:['%s', new plugin.google.maps.LatLng(%f, %f)]});}",
+    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: '%s', callback:'_onMarkerEvent', args:['%s', new plugin.zenrin.maps.LatLng(%f, %f)]});}",
           mapId, mapId, eventName, markerId, latLng.latitude, latLng.longitude);
     jsCallback(js);
   }
@@ -2354,7 +2354,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     String tmp[] = markerTag.split("-");
     String clusterId = tmp[0];
     String markerId = tmp[1];
-    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName: '%s', callback:'_onClusterEvent', args:['%s', '%s', new plugin.google.maps.LatLng(%f, %f)]});}",
+    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: '%s', callback:'_onClusterEvent', args:['%s', '%s', new plugin.zenrin.maps.LatLng(%f, %f)]});}",
             mapId, mapId, eventName, clusterId, markerId, latLng.latitude, latLng.longitude);
     jsCallback(js);
   }
@@ -2366,13 +2366,13 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     LatLng latLng = activeMarker.getPosition();
     Point point = projection.toScreenLocation(latLng);
 
-    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName: 'syncPosition', callback:'_onSyncInfoWndPosition', args:[{'x': %d, 'y': %d}]});}",
+    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: 'syncPosition', callback:'_onSyncInfoWndPosition', args:[{'x': %d, 'y': %d}]});}",
         mapId, mapId, (int)(point.x / density), (int)(point.y / density));
     jsCallback(js);
   }
 
   public void onOverlayEvent(String eventName, String overlayId, LatLng point) {
-    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName: '%s', callback:'_onOverlayEvent', args:['%s', new plugin.google.maps.LatLng(%f, %f)]});}",
+    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: '%s', callback:'_onOverlayEvent', args:['%s', new plugin.zenrin.maps.LatLng(%f, %f)]});}",
         mapId, mapId, eventName, overlayId, point.latitude, point.longitude);
     jsCallback(js);
   }
@@ -2398,7 +2398,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
    * @param eventName
    */
   public void onMapEvent(final String eventName) {
-    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName: '%s', callback:'_onMapEvent', args:[]});}",
+    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: '%s', callback:'_onMapEvent', args:[]});}",
             mapId, mapId, eventName);
     jsCallback(js);
   }
@@ -2409,7 +2409,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
    * @param point
    */
   public void onMapEvent(final String eventName, final LatLng point) {
-    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName: '%s', callback:'_onMapEvent', args:[new plugin.google.maps.LatLng(%f, %f)]});}",
+    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: '%s', callback:'_onMapEvent', args:[new plugin.zenrin.maps.LatLng(%f, %f)]});}",
         mapId, mapId, eventName, point.latitude, point.longitude);
     jsCallback(js);
   }
@@ -2564,7 +2564,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
 
   @Override
   public boolean onMyLocationButtonClick() {
-    jsCallback(String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName: 'my_location_button_click', callback:'_onMapEvent'});}",mapId, mapId));
+    jsCallback(String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: 'my_location_button_click', callback:'_onMapEvent'});}",mapId, mapId));
     return false;
   }
 
@@ -2573,7 +2573,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     PluginLocationService.setLastLocation(location);
     try {
       JSONObject result = PluginUtil.location2Json(location);
-      jsCallback(String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName: 'my_location_click', callback:'_onMapEvent', args: [%s]});}", mapId, mapId, result.toString(0)));
+      jsCallback(String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: 'my_location_click', callback:'_onMapEvent', args: [%s]});}", mapId, mapId, result.toString(0)));
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -2641,7 +2641,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
         jsCallback(
             String.format(
                 Locale.ENGLISH,
-                "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName:'%s', callback:'_onCameraEvent', args: [%s]});}",
+                "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName:'%s', callback:'_onCameraEvent', args: [%s]});}",
                 mapId, mapId, eventName, jsonStr));
       }
     });
@@ -2706,7 +2706,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
         jsonStr = result.toString();
       }
     }
-    jsCallback(String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName:'indoor_building_focused', callback:'_onMapEvent', args: [%s]});}", mapId, mapId, jsonStr));
+    jsCallback(String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName:'indoor_building_focused', callback:'_onMapEvent', args: [%s]});}", mapId, mapId, jsonStr));
   }
 
   @Override
@@ -2718,12 +2718,12 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
         jsonStr = result.toString();
       }
     }
-    jsCallback(String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName:'indoor_level_activated', callback:'_onMapEvent', args: [%s]});}", mapId, mapId, jsonStr));
+    jsCallback(String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName:'indoor_level_activated', callback:'_onMapEvent', args: [%s]});}", mapId, mapId, jsonStr));
   }
   @Override
   public void onPoiClick(PointOfInterest pointOfInterest) {
 
-    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.google.maps){plugin.google.maps['%s']({evtName: '%s', callback:'_onMapEvent', args:['%s', '%s', new plugin.google.maps.LatLng(%f, %f)]});}",
+    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: '%s', callback:'_onMapEvent', args:['%s', '%s', new plugin.zenrin.maps.LatLng(%f, %f)]});}",
     mapId, mapId, "poi_click", pointOfInterest.placeId, pointOfInterest.name, pointOfInterest.latLng.latitude, pointOfInterest.latLng.longitude);
     jsCallback(js);
   }

@@ -1,11 +1,11 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.content.res.AssetManager;
 import android.view.View;
 import android.webkit.WebView;
 
-import com.google.android.gms.maps.model.TileOverlay;
-import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.zdc.android.zms.maps.model.TileOverlay;
+import com.zdc.android.zms.maps.model.TileOverlayOptions;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPreferences;

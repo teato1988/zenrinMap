@@ -1,4 +1,4 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.annotation.SuppressLint;
 import android.content.res.AssetManager;
@@ -15,8 +15,8 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 
-import com.google.android.gms.maps.model.Tile;
-import com.google.android.gms.maps.model.TileProvider;
+import com.zdc.android.zms.maps.model.Tile;
+import com.zdc.android.zms.maps.model.TileProvider;
 
 import org.apache.cordova.CordovaWebView;
 

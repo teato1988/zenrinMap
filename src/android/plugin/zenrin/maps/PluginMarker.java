@@ -16,12 +16,12 @@ import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.google.android.gms.maps.Projection;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.zdc.android.zms.maps.Projection;
+import com.zdc.android.zms.maps.model.BitmapDescriptor;
+import com.zdc.android.zms.maps.model.BitmapDescriptorFactory;
+import com.zdc.android.zms.maps.model.LatLng;
+import com.zdc.android.zms.maps.model.Marker;
+import com.zdc.android.zms.maps.model.MarkerOptions;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;

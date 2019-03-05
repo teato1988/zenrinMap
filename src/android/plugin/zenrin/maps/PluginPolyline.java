@@ -1,11 +1,11 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.graphics.Color;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
+import com.zdc.android.zms.maps.model.LatLng;
+import com.zdc.android.zms.maps.model.LatLngBounds;
+import com.zdc.android.zms.maps.model.Polyline;
+import com.zdc.android.zms.maps.model.PolylineOptions;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;

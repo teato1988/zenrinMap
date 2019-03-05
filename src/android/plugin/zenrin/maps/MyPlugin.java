@@ -1,17 +1,17 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.util.Log;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.GroundOverlay;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.Polygon;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.TileOverlay;
+import com.zdc.android.zms.maps.ZDCMap;
+import com.zdc.android.zms.maps.model.Circle;
+import com.zdc.android.zms.maps.model.GroundOverlay;
+import com.zdc.android.zms.maps.model.LatLng;
+import com.zdc.android.zms.maps.model.Marker;
+import com.zdc.android.zms.maps.model.Polygon;
+import com.zdc.android.zms.maps.model.Polyline;
+import com.zdc.android.zms.maps.model.TileOverlay;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -33,8 +33,8 @@ public class MyPlugin extends CordovaPlugin implements MyPluginInterface {
   public final Map<String, Method> methods = new ConcurrentHashMap<String, Method>();
   protected static ExecutorService executorService = null;
 
-  public CordovaGoogleMaps mapCtrl = null;
-  public GoogleMap map = null;
+  public CordovaZenrinMaps mapCtrl = null;
+  public ZenrinMap map = null;
   public PluginMap pluginMap = null;
   protected boolean isRemoved = false;
   protected static float density = Resources.getSystem().getDisplayMetrics().density;
@@ -236,10 +236,10 @@ public class MyPlugin extends CordovaPlugin implements MyPluginInterface {
 
 
   protected void onOverlayEvent(String eventName, String overlayId, LatLng point) {
-    webView.loadUrl("javascript:plugin.google.maps.Map." +
+    webView.loadUrl("javascript:plugin.zenrin.maps.Map." +
         "_onOverlayEvent(" +
         "'" + eventName + "','" + overlayId + "', " +
-        "new window.plugin.google.maps.LatLng(" + point.latitude + "," + point.longitude + ")" +
+        "new window.plugin.zenrin.maps.LatLng(" + point.latitude + "," + point.longitude + ")" +
         ")");
   }
 }

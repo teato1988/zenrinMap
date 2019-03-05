@@ -4,10 +4,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.zdc.android.zms.maps.model.LatLng;
+import com.zdc.android.zms.maps.model.LatLngBounds;
+import com.zdc.android.zms.maps.model.Marker;
+import com.zdc.android.zms.maps.model.MarkerOptions;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
