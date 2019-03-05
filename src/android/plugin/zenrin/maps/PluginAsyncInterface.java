@@ -1,4 +1,4 @@
-package plugin.zenrin.maps;
+package plugin.google.maps;
 
 public interface PluginAsyncInterface {
   public void onPostExecute(Object object);

@@ -1,9 +1,9 @@
-package plugin.zenrin.maps;
+package plugin.google.maps;
 
-import com.zenrin.android.zdc.maps.model.Circle;
-import com.zenrin.android.zdc.maps.model.CircleOptions;
-import com.zenrin.android.zdc.maps.model.LatLng;
-import com.zenrin.android.zdc.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;

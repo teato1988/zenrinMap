@@ -1,4 +1,4 @@
-package plugin.zenrin.maps;
+package plugin.google.maps;
 
 import android.Manifest;
 import android.app.Activity;
@@ -13,14 +13,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 
-import com.zenrin.android.zdc.common.ConnectionResult;
-import com.zenrin.android.zdc.common.api.ZenrinApiClient;
-import com.zenrin.android.zdc.location.LocationCallback;
-import com.zenrin.android.zdc.location.LocationRequest;
-import com.zenrin.android.zdc.location.LocationResult;
-import com.zenrin.android.zdc.location.LocationServices;
-import com.zenrin.android.zdc.tasks.OnFailureListener;
-import com.zenrin.android.zdc.tasks.OnSuccessListener;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -42,10 +42,10 @@ public class PluginLocationService extends CordovaPlugin {
   private final String TAG = "PluginLocationService";
   private HashMap<String, Bundle> bufferForLocationDialog = new HashMap<String, Bundle>();
 
-  private final int ACTIVITY_LOCATION_DIALOG = 0x7f999900; // Invite the location dialog using Zenrin Play Services
+  private final int ACTIVITY_LOCATION_DIALOG = 0x7f999900; // Invite the location dialog using Google Play Services
   private final int ACTIVITY_LOCATION_PAGE = 0x7f999901;   // Open the location settings page
 
-  private ZenrinApiClient zenrinApiClient = null;
+  private GoogleApiClient googleApiClient = null;
 
   public void initialize(final CordovaInterface cordova, final CordovaWebView webView) {
     super.initialize(cordova, webView);
@@ -167,7 +167,7 @@ public class PluginLocationService extends CordovaPlugin {
         regularAccuracyRequestList.add(callbackContext);
       }
 
-      if (zenrinApiClient != null && zenrinApiClient.isConnecting()) {
+      if (googleApiClient != null && googleApiClient.isConnecting()) {
         return;
       }
     }
@@ -236,11 +236,11 @@ public class PluginLocationService extends CordovaPlugin {
       return;
     }
 
-    if (zenrinApiClient == null) {
+    if (googleApiClient == null) {
 
-      zenrinApiClient = new ZenrinApiClient.Builder(activity)
+      googleApiClient = new GoogleApiClient.Builder(activity)
         .addApi(LocationServices.API)
-        .addConnectionCallbacks(new com.zenrin.android.zdc.common.api.ZenrinApiClient.ConnectionCallbacks() {
+        .addConnectionCallbacks(new com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks() {
 
           @Override
           public void onConnected(Bundle connectionHint) {
@@ -254,7 +254,7 @@ public class PluginLocationService extends CordovaPlugin {
           }
 
         })
-        .addOnConnectionFailedListener(new com.zenrin.android.zdc.common.api.ZenrinApiClient.OnConnectionFailedListener() {
+        .addOnConnectionFailedListener(new com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener() {
 
           @Override
           public void onConnectionFailed(@NonNull ConnectionResult result) {
@@ -273,17 +273,17 @@ public class PluginLocationService extends CordovaPlugin {
               highAccuracyRequestList.clear();
             }
 
-            zenrinApiClient.disconnect();
+            googleApiClient.disconnect();
           }
 
         })
         .build();
-      zenrinApiClient.connect();
-    } else if (zenrinApiClient.isConnected()) {
+      googleApiClient.connect();
+    } else if (googleApiClient.isConnected()) {
       requestLocation();
     } else {
-      Log.e(TAG, "===> zenrinApiClient.isConnected() is not connected");
-      zenrinApiClient.connect();
+      Log.e(TAG, "===> googleApiClient.isConnected() is not connected");
+      googleApiClient.connect();
     }
   }
 
@@ -302,7 +302,7 @@ public class PluginLocationService extends CordovaPlugin {
             regularAccuracyRequestList.clear();
 
             if (regularAccuracyRequestList.size() == 0 && highAccuracyRequestList.size() == 0) {
-              zenrinApiClient.disconnect();
+              googleApiClient.disconnect();
             }
           }
 
@@ -321,7 +321,7 @@ public class PluginLocationService extends CordovaPlugin {
             }
             highAccuracyRequestList.clear();
             if (regularAccuracyRequestList.size() == 0 && highAccuracyRequestList.size() == 0) {
-              zenrinApiClient.disconnect();
+              googleApiClient.disconnect();
             }
           }
 
@@ -346,7 +346,7 @@ public class PluginLocationService extends CordovaPlugin {
 //    }
 //
 //    PendingResult<LocationSettingsResult> locationSettingsResult =
-//        LocationServices.SettingsApi.checkLocationSettings(zenrinApiClient, builder.build());
+//        LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
 //
 //    locationSettingsResult.setResultCallback(new ResultCallback<LocationSettingsResult>() {
 //
@@ -407,7 +407,7 @@ public class PluginLocationService extends CordovaPlugin {
 //    AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
 //    builder.setTitle("Improve location accuracy");
 //    builder.setMessage("To enhance your Maps experience:\n\n" +
-//        " - Enable Zenrin apps location access\n\n" +
+//        " - Enable Google apps location access\n\n" +
 //        " - Turn on GPS and mobile network location");
 //    builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
 //        @Override
@@ -491,7 +491,7 @@ public class PluginLocationService extends CordovaPlugin {
                 e.printStackTrace();
               }
 
-              zenrinApiClient.disconnect();
+              googleApiClient.disconnect();
             } else {
               Log.d(TAG, "---->The last location is expired. Let's get the latest location...");
               _requestLocationUpdate(true, enableHighAccuracy, callbackContext);
@@ -550,7 +550,7 @@ public class PluginLocationService extends CordovaPlugin {
               callbackContext.error(result);
             }
 
-            zenrinApiClient.disconnect();
+            googleApiClient.disconnect();
           }
         }, Looper.myLooper());
 

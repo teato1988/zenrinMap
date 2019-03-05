@@ -1,4 +1,4 @@
-package plugin.zenrin.maps;
+package plugin.google.maps;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -22,9 +22,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
-import com.zenrin.android.zdc.common.ConnectionResult;
-import com.zenrin.android.zdc.common.GooglePlayServicesUtil;
-import com.zenrin.android.zdc.maps.MapsInitializer;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.MapsInitializer;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -45,8 +45,8 @@ import java.util.LinkedHashMap;
 import java.util.Set;
 
 @SuppressWarnings("deprecation")
-public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver.OnScrollChangedListener{
-  private final String TAG = "ZenrinMapsPlugin";
+public class CordovaGoogleMaps extends CordovaPlugin implements ViewTreeObserver.OnScrollChangedListener{
+  private final String TAG = "GoogleMapsPlugin";
   private Activity activity;
   public ViewGroup root;
   public MyPluginLayout mPluginLayout = null;
@@ -65,7 +65,7 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
 
     activity = cordova.getActivity();
     final View view = webView.getView();
-    view.getViewTreeObserver().addOnScrollChangedListener(CordovaZenrinMaps.this);
+    view.getViewTreeObserver().addOnScrollChangedListener(CordovaGoogleMaps.this);
     root = (ViewGroup) view.getParent();
 
     pluginManager = webView.getPluginManager();
@@ -91,7 +91,7 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
         Log.d(TAG, "----> checkGooglePlayServices = " + (ConnectionResult.SUCCESS == checkGooglePlayServices));
 
         if (checkGooglePlayServices != ConnectionResult.SUCCESS) {
-          // zenrin play services is missing!!!!
+          // google play services is missing!!!!
           /*
            * Returns status code indicating whether there was an error. Can be one
            * of following in ConnectionResult: SUCCESS, SERVICE_MISSING,
@@ -101,40 +101,40 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
 
           boolean isNeedToUpdate = false;
 
-          String errorMsg = PluginUtil.getPgmStrings(activity, "pgm_zenrin_play_error");
+          String errorMsg = PluginUtil.getPgmStrings(activity, "pgm_google_play_error");
           switch (checkGooglePlayServices) {
             case ConnectionResult.DEVELOPER_ERROR:
-              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_zenrin_play_developer_error");
+              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_google_play_developer_error");
               break;
             case ConnectionResult.INTERNAL_ERROR:
-              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_zenrin_play_internal_error");
+              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_google_play_internal_error");
               break;
             case ConnectionResult.INVALID_ACCOUNT:
-              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_zenrin_play_invalid_account");
+              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_google_play_invalid_account");
               break;
             case ConnectionResult.LICENSE_CHECK_FAILED:
-              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_zenrin_play_license_check_failed");
+              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_google_play_license_check_failed");
               break;
             case ConnectionResult.NETWORK_ERROR:
-              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_zenrin_play_network_error");
+              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_google_play_network_error");
               break;
             case ConnectionResult.SERVICE_DISABLED:
-              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_zenrin_play_service_disabled");
+              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_google_play_service_disabled");
               break;
             case ConnectionResult.SERVICE_INVALID:
-              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_zenrin_play_service_invalid");
+              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_google_play_service_invalid");
               isNeedToUpdate = true;
               break;
             case ConnectionResult.SERVICE_MISSING:
-              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_zenrin_play_service_missing");
+              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_google_play_service_missing");
               isNeedToUpdate = true;
               break;
             case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
-              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_zenrin_play_service_update_required");
+              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_google_play_service_update_required");
               isNeedToUpdate = true;
               break;
             case ConnectionResult.SIGN_IN_REQUIRED:
-              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_zenrin_play_sign_in_required");
+              errorMsg = PluginUtil.getPgmStrings(activity,"pgm_google_play_sign_in_required");
               break;
             default:
               isNeedToUpdate = true;
@@ -146,14 +146,14 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
           alertDialogBuilder
               .setMessage(errorMsg)
               .setCancelable(false)
-              .setPositiveButton(PluginUtil.getPgmStrings(activity,"pgm_zenrin_close_button"), new DialogInterface.OnClickListener() {
+              .setPositiveButton(PluginUtil.getPgmStrings(activity,"pgm_google_close_button"), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
                   dialog.dismiss();
                   if (finalIsNeedToUpdate) {
                     try {
-                      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.zenrin.android.zdc")));
+                      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.gms")));
                     } catch (android.content.ActivityNotFoundException anfe) {
-                      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.zenrin.com/store/apps/details?id=appPackageName")));
+                      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=appPackageName")));
                     }
                   }
                 }
@@ -179,7 +179,7 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
           appliInfo = activity.getPackageManager().getApplicationInfo(activity.getPackageName(), PackageManager.GET_META_DATA);
         } catch (NameNotFoundException e) {}
 
-        String API_KEY = appliInfo.metaData.getString("com.zenrin.android.maps.v2.API_KEY");
+        String API_KEY = appliInfo.metaData.getString("com.google.android.maps.v2.API_KEY");
         if ("API_KEY_FOR_ANDROID".equals(API_KEY)) {
 
           AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
@@ -187,7 +187,7 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
           alertDialogBuilder
               .setMessage(PluginUtil.getPgmStrings(activity,"pgm_api_key_error"))
               .setCancelable(false)
-              .setPositiveButton(PluginUtil.getPgmStrings(activity,"pgm_zenrin_close_button"), new DialogInterface.OnClickListener() {
+              .setPositiveButton(PluginUtil.getPgmStrings(activity,"pgm_google_close_button"), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
                   dialog.dismiss();
                 }
@@ -255,23 +255,23 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
       public void run() {
         try {
           if (action.equals("putHtmlElements")) {
-            CordovaZenrinMaps.this.putHtmlElements(args, callbackContext);
+            CordovaGoogleMaps.this.putHtmlElements(args, callbackContext);
           } else if ("clearHtmlElements".equals(action)) {
-            CordovaZenrinMaps.this.clearHtmlElements(args, callbackContext);
+            CordovaGoogleMaps.this.clearHtmlElements(args, callbackContext);
           } else if ("pause".equals(action)) {
-            CordovaZenrinMaps.this.pause(args, callbackContext);
+            CordovaGoogleMaps.this.pause(args, callbackContext);
           } else if ("resume".equals(action)) {
-            CordovaZenrinMaps.this.resume(args, callbackContext);
+            CordovaGoogleMaps.this.resume(args, callbackContext);
           } else if ("getMap".equals(action)) {
-            CordovaZenrinMaps.this.getMap(args, callbackContext);
+            CordovaGoogleMaps.this.getMap(args, callbackContext);
           } else if ("getPanorama".equals(action)) {
-            CordovaZenrinMaps.this.getPanorama(args, callbackContext);
+            CordovaGoogleMaps.this.getPanorama(args, callbackContext);
           } else if ("removeMap".equals(action)) {
-            CordovaZenrinMaps.this.removeMap(args, callbackContext);
+            CordovaGoogleMaps.this.removeMap(args, callbackContext);
           } else if ("backHistory".equals(action)) {
-            CordovaZenrinMaps.this.backHistory(args, callbackContext);
+            CordovaGoogleMaps.this.backHistory(args, callbackContext);
           } else if ("updateMapPositionOnly".equals(action)) {
-            CordovaZenrinMaps.this.updateMapPositionOnly(args, callbackContext);
+            CordovaGoogleMaps.this.updateMapPositionOnly(args, callbackContext);
           }
 
         } catch (JSONException e) {
@@ -454,7 +454,7 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
     PluginMap pluginMap = new PluginMap();
     pluginMap.privateInitialize(mapId, cordova, webView, null);
     pluginMap.initialize(cordova, webView);
-    pluginMap.mapCtrl = CordovaZenrinMaps.this;
+    pluginMap.mapCtrl = CordovaGoogleMaps.this;
     pluginMap.self = pluginMap;
     pluginMap.CURRENT_PAGE_URL = CURRENT_URL;
 
@@ -476,7 +476,7 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
     PluginStreetViewPanorama pluginStreetView = new PluginStreetViewPanorama();
     pluginStreetView.privateInitialize(mapId, cordova, webView, null);
     pluginStreetView.initialize(cordova, webView);
-    pluginStreetView.mapCtrl = CordovaZenrinMaps.this;
+    pluginStreetView.mapCtrl = CordovaGoogleMaps.this;
     pluginStreetView.self = pluginStreetView;
     pluginStreetView.CURRENT_PAGE_URL = CURRENT_URL;
 
@@ -565,7 +565,7 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
         PluginMap pluginMap;
         Collection<PluginEntry> collection =  pluginManager.getPluginEntries();
         for (PluginEntry entry: collection) {
-          if ("plugin.zenrin.maps.PluginMap".equals(entry.pluginClass) && entry.plugin != null) {
+          if ("plugin.google.maps.PluginMap".equals(entry.pluginClass) && entry.plugin != null) {
             pluginMap = (PluginMap)entry.plugin;
             if (pluginMap.map != null) {
 

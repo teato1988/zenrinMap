@@ -1,10 +1,10 @@
-package plugin.zenrin.maps;
+package plugin.google.maps;
 
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 
-import com.zenrin.android.zdc.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 
 public class PluginGeocoder extends CordovaPlugin {
 
-  // In order to prevent the TOO_MANY_REQUEST_ERROR (block by Zenrin because too many request in short period),
+  // In order to prevent the TOO_MANY_REQUEST_ERROR (block by Google because too many request in short period),
   // restricts the number of parallel threads.
   //
   // According from my tests,  5 threads are the best setting.

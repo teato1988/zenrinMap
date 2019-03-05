@@ -1,4 +1,4 @@
-package plugin.zenrin.maps;
+package plugin.google.maps;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,8 +6,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 
-import com.zenrin.android.zdc.common.ConnectionResult;
-import com.zenrin.android.zdc.common.ZenrinApiAvailability;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -53,18 +53,18 @@ public class Environment extends CordovaPlugin {
   public void isAvailable(final JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
     // ------------------------------
-    // Check of Zenrin Play Services
+    // Check of Google Play Services
     // ------------------------------
-    int checkZenrinPlayServices =
-      ZenrinApiAvailability.getInstance().isZenrinPlayServicesAvailable(cordova.getActivity());
-    if (checkZenrinPlayServices != ConnectionResult.SUCCESS) {
-      String errorMsg = ZenrinApiAvailability.getInstance().getErrorString(checkZenrinPlayServices);
+    int checkGooglePlayServices =
+      GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(cordova.getActivity());
+    if (checkGooglePlayServices != ConnectionResult.SUCCESS) {
+      String errorMsg = GoogleApiAvailability.getInstance().getErrorString(checkGooglePlayServices);
       callbackContext.error(errorMsg);
 
       try {
-        cordova.getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.zenrin.android.gms")));
+        cordova.getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.gms")));
       } catch (android.content.ActivityNotFoundException anfe) {
-        cordova.getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.zenrin.com/store/apps/details?id=com.zenrin.android.gms")));
+        cordova.getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.google.android.gms")));
       }
 
       // End the app (in order to prevent lots of crashes)
@@ -74,13 +74,13 @@ public class Environment extends CordovaPlugin {
     }
 
     // ------------------------------
-    // Check of Zenrin Maps Android API v2
+    // Check of Google Maps Android API v2
     // ------------------------------
     try {
       @SuppressWarnings({ "rawtypes" })
-      Class ZenrinMapsClass = Class.forName("com.zenrin.android.zdc.maps.ZenrinMap");
+      Class GoogleMapsClass = Class.forName("com.google.android.gms.maps.GoogleMap");
     } catch (Exception e) {
-      Log.e("ZenrinMaps", "Error", e);
+      Log.e("GoogleMaps", "Error", e);
       callbackContext.error(e.getMessage());
       return;
     }
@@ -107,20 +107,20 @@ public class Environment extends CordovaPlugin {
     final int finalBackgroundColor = backgroundColor;
 
 
-    final CordovaZenrinMaps zenrinMaps = (CordovaZenrinMaps) pluginManager.getPlugin("CordovaZenrinMaps");
+    final CordovaGoogleMaps googleMaps = (CordovaGoogleMaps) pluginManager.getPlugin("CordovaGoogleMaps");
 
     Handler handler = new Handler(cordova.getActivity().getMainLooper());
     handler.postDelayed(new Runnable() {
       public void run() {
-        zenrinMaps.mPluginLayout.setBackgroundColor(finalBackgroundColor);
+        googleMaps.mPluginLayout.setBackgroundColor(finalBackgroundColor);
         callbackContext.success();
       }
-    }, zenrinMaps.initialized ? 0 : 250);
+    }, googleMaps.initialized ? 0 : 250);
   }
 
   @SuppressWarnings("unused")
   public Boolean getLicenseInfo(JSONArray args, final CallbackContext callbackContext) {
-    callbackContext.success("Zenrin Maps Android API v2 does not need this method anymore. But for iOS, you still need to display the lincense.");
+    callbackContext.success("Google Maps Android API v2 does not need this method anymore. But for iOS, you still need to display the lincense.");
     return true;
   }
 

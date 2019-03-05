@@ -1,4 +1,4 @@
-package plugin.zenrin.maps;
+package plugin.google.maps;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

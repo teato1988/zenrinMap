@@ -1,4 +1,4 @@
-package plugin.zenrin.maps;
+package plugin.google.maps;
 
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -124,7 +124,7 @@ public class AsyncLoadImage extends AsyncTask<Void, Void, AsyncLoadImage.AsyncLo
       mOptions.url = PluginUtil.getAbsolutePathFromCDVFilePath(resourceApi, mOptions.url);
     }
 
-    this.currentPageUrl = CordovaZenrinMaps.CURRENT_URL;
+    this.currentPageUrl = CordovaGoogleMaps.CURRENT_URL;
     if (this.currentPageUrl == null) {
       this.currentPageUrl = webView.getUrl();
     }
