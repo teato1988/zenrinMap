@@ -1,0 +1,25 @@
+{
+  "name": "cordova.plugin.zenrinmaps",
+  "version": "0.1.0",
+  "description": "zenrin map",
+  "cordova": {
+    "id": "cordova.plugin.zenrinmaps",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teato1988/zenrin.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "htetthu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teato1988/zenrin/issues"
+  },
+  "homepage": "https://github.com/teato1988/zenrin#readme"
+}

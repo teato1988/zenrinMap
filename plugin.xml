@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova.plugin.zenrinmaps" version="0.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>cordova-plugin-zenrinmaps</name>
+	 <js-module name="BaseClass" src="www/BaseClass.js">
+      <runs />
+    </js-module>
+    <js-module name="BaseArrayClass" src="www/BaseArrayClass.js">
+      <runs />
+    </js-module>
+    <js-module name="LatLng" src="www/LatLng.js">
+      <runs />
+    </js-module>
+    <js-module name="LatLngBounds" src="www/LatLngBounds.js">
+      <runs />
+    </js-module>
+    <js-module name="VisibleRegion" src="www/VisibleRegion.js">
+      <runs />
+    </js-module>
+    <js-module name="Location" src="www/Location.js">
+      <runs />
+    </js-module>
+    <js-module name="CameraPosition" src="www/CameraPosition.js">
+      <runs />
+    </js-module>
+    <js-module name="Polyline" src="www/Polyline.js">
+      <runs />
+    </js-module>
+    <js-module name="Polygon" src="www/Polygon.js">
+      <runs />
+    </js-module>
+    <js-module name="Marker" src="www/Marker.js">
+      <runs />
+    </js-module>
+    <js-module name="HtmlInfoWindow" src="www/HtmlInfoWindow.js">
+      <runs />
+    </js-module>
+    <js-module name="Circle" src="www/Circle.js">
+      <runs />
+    </js-module>
+    <js-module name="TileOverlay" src="www/TileOverlay.js">
+      <runs />
+    </js-module>
+    <js-module name="GroundOverlay" src="www/GroundOverlay.js">
+      <runs />
+    </js-module>
+    <js-module name="Common" src="www/Common.js">
+      <runs />
+    </js-module>
+    <js-module name="encoding" src="www/encoding.js">
+      <runs />
+    </js-module>
+    <js-module name="spherical" src="www/spherical.js">
+      <runs />
+    </js-module>
+    <js-module name="poly" src="www/poly.js">
+      <runs />
+    </js-module>
+    <js-module name="Geocoder" src="www/Geocoder.js">
+      <runs />
+    </js-module>
+    <js-module name="LocationService" src="www/LocationService.js">
+      <runs />
+    </js-module>
+    <js-module name="Map" src="www/Map.js">
+      <runs />
+    </js-module>
+    <js-module name="event" src="www/event.js">
+      <runs />
+    </js-module>
+    <js-module name="MapTypeId" src="www/MapTypeId.js">
+      <runs />
+    </js-module>
+    <js-module name="KmlOverlay" src="www/KmlOverlay.js">
+      <runs />
+    </js-module>
+    <js-module name="KmlLoader" src="www/KmlLoader.js">
+      <runs />
+    </js-module>
+    <js-module name="Environment" src="www/Environment.js">
+      <runs />
+    </js-module>
+    <js-module name="MarkerCluster" src="www/MarkerCluster.js">
+      <runs />
+    </js-module>
+    <js-module name="Cluster" src="www/Cluster.js">
+      <runs />
+    </js-module>
+    <js-module name="geomodel" src="www/geomodel.js">
+      <runs />
+    </js-module>
+    <js-module name="commandQueueExecutor" src="www/commandQueueExecutor.js">
+      <runs />
+    </js-module>
+    <js-module name="pluginInit" src="www/pluginInit.js">
+      <runs />
+    </js-module>
+    <js-module name="CordovaZenrinMaps" src="www/CordovaZenrinMaps.js">
+      <runs />
+    </js-module>
+    <js-module name="StreetViewPanorama" src="www/StreetViewPanorama.js">
+      <runs />
+    </js-module>
+    <js-module name="Overlay" src="www/Overlay.js">
+      <runs />
+    </js-module>
+    <repo>https://github.com/teato1988/zenrin.git</repo>
+    <author>Htet Thu</author>
+	<platform name="android">
+		<js-module name="zenrinmaps-cdv-plugin" src="www/zenrinmaps-cdv-plugin.js">
+          <clobbers target="plugin.zenrin.maps" />
+        </js-module>
+        <config-file target="config.xml" parent="/*">
+          <!-- for Crosswalk -->
+          <preference name="xwalkZOrderOnTop" value="true" />
+          <preference name="BackgroundColor" value="0" />
+
+          <!-- for this plugin -->
+          <preference name="android-minSdkVersion" value="19" />
+        </config-file>
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="CordovaZenrinMaps">
+				<param name="android-package" value="plugin.zenrin.maps.CordovaZenrinMaps" />
+				<param name="onload" value="true" />
+                <param name="onreset" value="true" />
+			</feature>
+			 <feature name="Map">
+                <param name="android-package" value="plugin.zenrin.maps.PluginMap" />
+            </feature>
+            <feature name="Polyline">
+                <param name="android-package" value="plugin.zenrin.maps.PluginPolyline" />
+            </feature>
+            <feature name="Polygon">
+                <param name="android-package" value="plugin.zenrin.maps.PluginPolygon" />
+            </feature>
+            <feature name="Marker">
+                <param name="android-package" value="plugin.zenrin.maps.PluginMarker" />
+            </feature>
+            <feature name="Circle">
+                <param name="android-package" value="plugin.zenrin.maps.PluginCircle" />
+            </feature>
+            <feature name="TileOverlay">
+                <param name="android-package" value="plugin.zenrin.maps.PluginTileOverlay" />
+            </feature>
+            <feature name="GroundOverlay">
+                <param name="android-package" value="plugin.zenrin.maps.PluginGroundOverlay" />
+            </feature>
+            <feature name="KmlOverlay">
+                <param name="android-package" value="plugin.zenrin.maps.PluginKmlOverlay" />
+            </feature>
+            <feature name="Geocoder">
+                <param name="android-package" value="plugin.zenrin.maps.PluginGeocoder" />
+            </feature>
+            <feature name="LocationService">
+                <param name="android-package" value="plugin.zenrin.maps.PluginLocationService" />
+            </feature>
+            <feature name="Environment">
+                <param name="android-package" value="plugin.zenrin.maps.Environment" />
+            </feature>
+            <feature name="MarkerCluster">
+                <param name="android-package" value="plugin.zenrin.maps.PluginMarkerCluster" />
+            </feature>
+            <feature name="StreetViewPanorama">
+                <param name="android-package" value="plugin.zenrin.maps.PluginStreetViewPanorama" />
+            </feature>
+		</config-file>
+		<source-file src="src/android/plugin/zenrin/maps/AsyncLoadImage.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/AsyncLoadImageInterface.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/Environment.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/CordovazenrinMaps.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/ObjectCache.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/MyPlugin.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/MyPluginLayout.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/MyPluginInterface.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginCircle.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginGeocoder.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginLocationService.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginGroundOverlay.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginKmlOverlay.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginMap.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginMarker.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginPolygon.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginPolyline.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginTileOverlay.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginTileProvider.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginUtil.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginAsyncInterface.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/BitmapCache.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginMarkerCluster.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/PluginStreetViewPanorama.java" target-dir="src/plugin/zenrin/maps" />
+        <source-file src="src/android/plugin/zenrin/maps/IPluginView.java" target-dir="src/plugin/zenrin/maps" />
+
+        <framework src="src/android/frameworks/tbxml-android.gradle"  custom="true" type="gradleReference" />
+        <resource-file src="src/android/frameworks/tbxml-android.aar"  target="libs/tbxml-android.aar" />
+
+		<config-file parent="/*" target="AndroidManifest.xml">
+		</config-file>
+		<config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <!-- The following two permissions are not required to use
+                 zenrin Maps Android API v2, but are recommended. -->
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <!-- OpenGL ES version 2 -->
+            <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+            <!-- GPS -->
+            <uses-feature android:name="android.hardware.location" />
+            <uses-feature android:name="android.hardware.location.gps" />
+        </config-file>
+
+        <resource-file src="src/android/res/layout/dummy_infowindow.xml" target="res/layout/dummy_infowindow.xml"/>
+        <resource-file src="src/android/res/drawable/dummy_my_location_button.png" target="res/drawable/dummy_my_location_button.png"/>
+        <resource-file src="src/android/res/drawable/dummy_mylocation_button_shadow.xml" target="res/drawable/dummy_mylocation_button_shadow.xml"/>
+
+        <preference name="PLAY_SERVICES_VERSION" default="15.0.1" />
+        <framework src="com.zenrin.android.gms:play-services-maps:$PLAY_SERVICES_VERSION" />
+        <framework src="com.zenrin.android.gms:play-services-location:$PLAY_SERVICES_VERSION" />
+        <preference name="ANDROID_SUPPORT_V4_VERSION" default="27.+" />
+        <framework src="com.android.support:support-core-utils:$ANDROID_SUPPORT_V4_VERSION" />
+	</platform>
+</plugin>
