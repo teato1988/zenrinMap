@@ -189,8 +189,8 @@
         <source-file src="src/android/plugin/zenrin/maps/PluginStreetViewPanorama.java" target-dir="src/plugin/zenrin/maps" />
         <source-file src="src/android/plugin/zenrin/maps/IPluginView.java" target-dir="src/plugin/zenrin/maps" />
 
-        <framework src="src/android/frameworks/tbxml-android.gradle"  custom="true" type="gradleReference" />
-        <resource-file src="src/android/frameworks/tbxml-android.aar"  target="libs/tbxml-android.aar" />
+        <framework src="src/android/frameworks/zenrin-android.gradle"  custom="true" type="gradleReference" />
+        <resource-file src="src/android/frameworks/zenrin-android.aar"  target="libs/zenrin-android.aar" />
 
 		<config-file parent="/*" target="AndroidManifest.xml">
 		</config-file>
