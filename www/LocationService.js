@@ -99,7 +99,7 @@ LocationService.prototype.followMyPosition = function(params, success_callback, 
   };
   exec.call({
     _isReady: true
-  }, successHandler, errorHandler, 'CordovaGoogleMaps', 'followMyPosition', [params], {sync: true});
+  }, successHandler, errorHandler, 'CordovaZenrinMaps', 'followMyPosition', [params], {sync: true});
 };
 
 LocationService.prototype.clearFollowing = function() {
@@ -107,7 +107,7 @@ LocationService.prototype.clearFollowing = function() {
   self.off('currentPosition_changed');
   exec.call({
     _isReady: true
-  }, successHandler, errorHandler, 'CordovaGoogleMaps', 'clearFollowing', [params], {sync: true});
+  }, successHandler, errorHandler, 'CordovaZenrinMaps', 'clearFollowing', [params], {sync: true});
 };
 **/
 

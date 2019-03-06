@@ -236,7 +236,7 @@ Map.prototype.getMap = function(meta, div, options) {
     setTimeout(function() {
       common.nextTick(waitCameraSync);
     }, 100);
-  }, self.errorHandler, 'CordovaGoogleMaps', 'getMap', args, {
+  }, self.errorHandler, 'CordovaZenrinMaps', 'getMap', args, {
     sync: true
   });
 };
@@ -701,7 +701,7 @@ Map.prototype.remove = function(callback) {
     self.exec.call(self,
       resolve.bind(self),
       reject.bind(self),
-      'CordovaGoogleMaps', 'removeMap', [self.id],
+      'CordovaZenrinMaps', 'removeMap', [self.id],
       {
         sync: true,
         remove: true

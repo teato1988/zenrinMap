@@ -5,7 +5,7 @@ var utils = require('cordova/utils'),
   Map = require('./Map'),
   StreetViewPanorama = require('./StreetViewPanorama');
 
-function CordovaGoogleMaps(execCmd) {
+function CordovaZenrinMaps(execCmd) {
   var self = this;
   BaseClass.apply(this);
 
@@ -124,16 +124,16 @@ function CordovaGoogleMaps(execCmd) {
 
   self.on("isSuspended_changed", function(oldValue, newValue) {
     if (newValue) {
-      cordova_exec(null, null, 'CordovaGoogleMaps', 'pause', []);
+      cordova_exec(null, null, 'CordovaZenrinMaps', 'pause', []);
     } else {
-      cordova_exec(null, null, 'CordovaGoogleMaps', 'resume', []);
+      cordova_exec(null, null, 'CordovaZenrinMaps', 'resume', []);
     }
   });
 }
 
-utils.extend(CordovaGoogleMaps, BaseClass);
+utils.extend(CordovaZenrinMaps, BaseClass);
 
-CordovaGoogleMaps.prototype.traceDomTree = function(element, elemId, isMapChild) {
+CordovaZenrinMaps.prototype.traceDomTree = function(element, elemId, isMapChild) {
   //------------------------------------------
   // Create the DOM hierarchy graph
   //------------------------------------------
@@ -210,7 +210,7 @@ CordovaGoogleMaps.prototype.traceDomTree = function(element, elemId, isMapChild)
   }
 };
 
-CordovaGoogleMaps.prototype.setDomId = function(element) {
+CordovaZenrinMaps.prototype.setDomId = function(element) {
   //----------------------------------------------------------------------
   // This procedure generates unique ID
   // for all elements under the element, and the element itself.
@@ -223,7 +223,7 @@ CordovaGoogleMaps.prototype.setDomId = function(element) {
   }
 };
 
-CordovaGoogleMaps.prototype.putHtmlElements = function() {
+CordovaZenrinMaps.prototype.putHtmlElements = function() {
   //----------------------------------------------------------------------
   // This procedure generates a DOM hierarchy tree graph from <BODY>.
   //----------------------------------------------------------------------
@@ -371,11 +371,11 @@ CordovaGoogleMaps.prototype.putHtmlElements = function() {
     }, 50);
     self.isChecking = false;
     self.pause();
-  }, null, 'CordovaGoogleMaps', 'putHtmlElements', [self.domPositions]);
+  }, null, 'CordovaZenrinMaps', 'putHtmlElements', [self.domPositions]);
 };
 
 
-CordovaGoogleMaps.prototype.pause = function() {
+CordovaZenrinMaps.prototype.pause = function() {
   var self = this;
 
   self.set("isSuspended", true);
@@ -383,7 +383,7 @@ CordovaGoogleMaps.prototype.pause = function() {
   self.isChecking = false;
 };
 
-CordovaGoogleMaps.prototype.resume = function() {
+CordovaZenrinMaps.prototype.resume = function() {
   var self = this;
   self.set("isSuspended", false);
 };
@@ -392,7 +392,7 @@ CordovaGoogleMaps.prototype.resume = function() {
 // If the `transitionend` event is ocurred on the observed element,
 // adjust the position and size of the map view
 
-CordovaGoogleMaps.prototype.followMaps = function(evt) {
+CordovaZenrinMaps.prototype.followMaps = function(evt) {
   var self = this;
   if (self.MAP_CNT === 0) {
     return;
@@ -413,7 +413,7 @@ CordovaGoogleMaps.prototype.followMaps = function(evt) {
 
 // CSS event `transitionend` is fired even the target dom element is still moving.
 // In order to detect "correct demention after the transform", wait until stable.
-CordovaGoogleMaps.prototype.onTransitionEnd = function(evt) {
+CordovaZenrinMaps.prototype.onTransitionEnd = function(evt) {
   var self = this;
   if (self.MAP_CNT === 0 || !evt) {
     return;
@@ -430,7 +430,7 @@ CordovaGoogleMaps.prototype.onTransitionEnd = function(evt) {
   }
 };
 
-CordovaGoogleMaps.prototype.detectTransitionFinish = function() {
+CordovaZenrinMaps.prototype.detectTransitionFinish = function() {
   var self = this;
   var keys = Object.keys(self.transformTargets);
   var onFilter = function(elemId) {
@@ -469,7 +469,7 @@ CordovaGoogleMaps.prototype.detectTransitionFinish = function() {
   }
 };
 
-CordovaGoogleMaps.prototype.onTransitionFinish = function() {
+CordovaZenrinMaps.prototype.onTransitionFinish = function() {
   var self = this;
   if (self.MAP_CNT === 0) {
     self.transforming = false;
@@ -496,7 +496,7 @@ CordovaGoogleMaps.prototype.onTransitionFinish = function() {
 };
 
 
-CordovaGoogleMaps.prototype.removeDomTree = function(node) {
+CordovaZenrinMaps.prototype.removeDomTree = function(node) {
   //----------------------------------------------------------------------------
   // This procedure removes the DOM tree graph from the specified element(node)
   //----------------------------------------------------------------------------
@@ -539,7 +539,7 @@ CordovaGoogleMaps.prototype.removeDomTree = function(node) {
 
 };
 
-CordovaGoogleMaps.prototype.invalidate = function(opts) {
+CordovaZenrinMaps.prototype.invalidate = function(opts) {
   //-------------------------------
   // Recheck the DOM positions
   //-------------------------------
@@ -557,7 +557,7 @@ CordovaGoogleMaps.prototype.invalidate = function(opts) {
   });
 };
 
-CordovaGoogleMaps.prototype.followMapDivPositionOnly = function(opts) {
+CordovaZenrinMaps.prototype.followMapDivPositionOnly = function(opts) {
   //----------------------------------------------------------------------------
   // Follow the map div position and size only without the DOM check.
   // This is designed for scrolling.
@@ -614,13 +614,13 @@ CordovaGoogleMaps.prototype.followMapDivPositionOnly = function(opts) {
 
   // If changed, move the map views.
   if (changed || opts.force) {
-    cordova_exec(null, null, 'CordovaGoogleMaps', 'updateMapPositionOnly', [mapRects]);
+    cordova_exec(null, null, 'CordovaZenrinMaps', 'updateMapPositionOnly', [mapRects]);
     return changed;
   }
   return false;
 };
 
-CordovaGoogleMaps.prototype.invalidateN = function(cnt) {
+CordovaZenrinMaps.prototype.invalidateN = function(cnt) {
   var self = this;
   if (self.cnt > 0) {
     return;
@@ -639,7 +639,7 @@ CordovaGoogleMaps.prototype.invalidateN = function(cnt) {
 };
 
 
-CordovaGoogleMaps.prototype.getMap = function(div, mapOptions) {
+CordovaZenrinMaps.prototype.getMap = function(div, mapOptions) {
   var self = this;
   var args = Array.prototype.slice.call(arguments, 0);
 
@@ -794,7 +794,7 @@ CordovaGoogleMaps.prototype.getMap = function(div, mapOptions) {
   return map;
 };
 
-CordovaGoogleMaps.prototype.getPanorama = function(div, streetViewOptions) {
+CordovaZenrinMaps.prototype.getPanorama = function(div, streetViewOptions) {
   var self = this;
   var mapId = "streetview_" + self.MAP_CNT + "_" + self.saltHash;
 
@@ -826,7 +826,7 @@ CordovaGoogleMaps.prototype.getPanorama = function(div, streetViewOptions) {
   return panorama;
 };
 
-CordovaGoogleMaps.prototype._remove = function(mapId) {
+CordovaZenrinMaps.prototype._remove = function(mapId) {
   var self = this;
   delete plugin.google.maps[mapId];
   var map = self.MAPS[mapId];
@@ -930,7 +930,7 @@ function postPanoramaInit(panorama, div, options) {
 
   cordova_exec(function() {
     panorama.getPanorama.apply(panorama, args);
-  }, null, 'CordovaGoogleMaps', 'putHtmlElements', [self.domPositions]);
+  }, null, 'CordovaZenrinMaps', 'putHtmlElements', [self.domPositions]);
 
 
 }
@@ -999,7 +999,7 @@ function postMapInit(map, div, options) {
 
     cordova_exec(function() {
       map.getMap.apply(map, args);
-    }, null, 'CordovaGoogleMaps', 'putHtmlElements', [self.domPositions]);
+    }, null, 'CordovaZenrinMaps', 'putHtmlElements', [self.domPositions]);
   } else {
     args.push({
       id: mapId,
@@ -1014,4 +1014,4 @@ function postMapInit(map, div, options) {
 }
 
 
-module.exports = CordovaGoogleMaps;
+module.exports = CordovaZenrinMaps;

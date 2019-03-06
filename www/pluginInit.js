@@ -131,7 +131,7 @@ function pluginInit() {
       // The plugin does not take care anymore if another callback is registered.
       anotherBackbuttonHandler(e);
     } else {
-      cordova_exec(null, null, 'CordovaGoogleMaps', 'backHistory', []);
+      cordova_exec(null, null, 'CordovaZenrinMaps', 'backHistory', []);
     }
   }
 

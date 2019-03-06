@@ -147,7 +147,7 @@ StreetViewPanorama.prototype.getPanorama = function(meta, panorama, div, options
     delete self._privateInitialize;
 
     self.trigger(event.PANORAMA_READY, self);
-  }, self.errorHandler, 'CordovaGoogleMaps', 'getPanorama', args, {
+  }, self.errorHandler, 'CordovaZenrinMaps', 'getPanorama', args, {
     sync: true
   });
 };
@@ -271,7 +271,7 @@ StreetViewPanorama.prototype.remove = function(callback) {
         resolve.call(self);
       },
       reject.bind(self),
-      'CordovaGoogleMaps', 'removeMap', [self.id], {
+      'CordovaZenrinMaps', 'removeMap', [self.id], {
         sync: true,
         remove: true
       });

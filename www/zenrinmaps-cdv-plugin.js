@@ -35,13 +35,13 @@ if (!cordova) {
   });
 
   var execCmd = require("./commandQueueExecutor");
-  var cordovaGoogleMaps = new (require('./CordovaZenrinMaps'))(execCmd);
+  var CordovaZenrinMaps = new (require('./CordovaZenrinMaps'))(execCmd);
 
   (new Promise(function(resolve) {
     var wait = function() {
       if (document.body) {
         wait = undefined;
-        cordovaGoogleMaps.trigger('start');
+        CordovaZenrinMaps.trigger('start');
         resolve();
       } else {
         setTimeout(wait, 50);
@@ -53,10 +53,10 @@ if (!cordova) {
     common.nextTick(function() {
       // If the developer needs to recalculate the DOM tree graph,
       // use `cordova.fireDocumentEvent('plugin_touch')`
-      document.addEventListener("plugin_touch", cordovaGoogleMaps.invalidate.bind(cordovaGoogleMaps));
+      document.addEventListener("plugin_touch", CordovaZenrinMaps.invalidate.bind(CordovaZenrinMaps));
 
       // Repositioning 30 times when the device orientaion is changed.
-      window.addEventListener("orientationchange", cordovaGoogleMaps.followMaps.bind(cordovaGoogleMaps, {
+      window.addEventListener("orientationchange", CordovaZenrinMaps.followMaps.bind(CordovaZenrinMaps, {
         target: document.body
       }));
 
@@ -67,21 +67,21 @@ if (!cordova) {
       // }
 
 
-      document.addEventListener("transitionstart", cordovaGoogleMaps.followMaps.bind(cordovaGoogleMaps), {capture: true});
-      document.body.parentNode.addEventListener("transitionend", cordovaGoogleMaps.onTransitionEnd.bind(cordovaGoogleMaps), {capture: true});
+      document.addEventListener("transitionstart", CordovaZenrinMaps.followMaps.bind(CordovaZenrinMaps), {capture: true});
+      document.body.parentNode.addEventListener("transitionend", CordovaZenrinMaps.onTransitionEnd.bind(CordovaZenrinMaps), {capture: true});
       // document.body.addEventListener("transitionend", function(e) {
       //   if (!e.target.hasAttribute("__pluginDomId")) {
       //     return;
       //   }
-      //   cordovaGoogleMaps.invalidateN(5);
+      //   CordovaZenrinMaps.invalidateN(5);
       // }, true);
 
       // If the `scroll` event is ocurred on the observed element,
       // adjust the position and size of the map view
-      document.body.parentNode.addEventListener("scroll", cordovaGoogleMaps.followMaps.bind(cordovaGoogleMaps), true);
+      document.body.parentNode.addEventListener("scroll", CordovaZenrinMaps.followMaps.bind(CordovaZenrinMaps), true);
       window.addEventListener("resize", function() {
-        cordovaGoogleMaps.transforming = true;
-        cordovaGoogleMaps.onTransitionFinish.call(cordovaGoogleMaps);
+        CordovaZenrinMaps.transforming = true;
+        CordovaZenrinMaps.onTransitionFinish.call(CordovaZenrinMaps);
       }, true);
 
     });
@@ -101,10 +101,10 @@ if (!cordova) {
     BaseClass: require('./BaseClass'),
     BaseArrayClass: require('./BaseArrayClass'),
     Map: {
-      getMap: cordovaGoogleMaps.getMap.bind(cordovaGoogleMaps)
+      getMap: CordovaZenrinMaps.getMap.bind(CordovaZenrinMaps)
     },
     StreetView: {
-      getPanorama: cordovaGoogleMaps.getPanorama.bind(cordovaGoogleMaps),
+      getPanorama: CordovaZenrinMaps.getPanorama.bind(CordovaZenrinMaps),
       Source: {
         DEFAULT: 'DEFAULT',
         OUTDOOR: 'OUTDOOR'
