@@ -213,8 +213,6 @@
         <resource-file src="src/android/res/drawable/dummy_mylocation_button_shadow.xml" target="res/drawable/dummy_mylocation_button_shadow.xml"/>
 
         <preference name="PLAY_SERVICES_VERSION" default="15.0.1" />
-        <framework src="com.zenrin.android.gms:play-services-maps:$PLAY_SERVICES_VERSION" />
-        <framework src="com.zenrin.android.gms:play-services-location:$PLAY_SERVICES_VERSION" />
         <preference name="ANDROID_SUPPORT_V4_VERSION" default="27.+" />
         <framework src="com.android.support:support-core-utils:$ANDROID_SUPPORT_V4_VERSION" />
 	</platform>
