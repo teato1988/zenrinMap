@@ -2,7 +2,7 @@
 /* global cordova, plugin, CSSPrimitiveValue */
 if (!cordova) {
   document.addEventListener("deviceready", function() {
-    require('cordova/exec')(null, null, 'CordovaGoogleMaps', 'pause', []);
+    require('cordova/exec')(null, null, 'CordovaZenrinMaps', 'pause', []);
   }, {
     once: true
   });
@@ -35,7 +35,7 @@ if (!cordova) {
   });
 
   var execCmd = require("./commandQueueExecutor");
-  var cordovaGoogleMaps = new (require('./CordovaGoogleMaps'))(execCmd);
+  var cordovaGoogleMaps = new (require('./CordovaZenrinMaps'))(execCmd);
 
   (new Promise(function(resolve) {
     var wait = function() {
