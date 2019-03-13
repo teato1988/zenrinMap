@@ -22,9 +22,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
-import com.zdc.android.zms.common.ConnectionResult;
-import com.zdc.android.zms.common.GooglePlayServicesUtil;
-import com.zdc.android.zms.maps.MapsInitializer;
+//import com.zdc.android.zms.common.ConnectionResult;
+//import com.zdc.android.zms.common.GooglePlayServicesUtil;
+import com.zdc.android.zms.maps.MapInitializer;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -53,6 +53,9 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
   public boolean initialized = false;
   public PluginManager pluginManager;
   public static String CURRENT_URL;
+  public static String domain;
+  public static String consumerKey;
+  public static String consumerSecret;
   private static final Object timerLock = new Object();
 
   @SuppressLint("NewApi") @Override
@@ -86,18 +89,13 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
         // ------------------------------
         // Check of Google Play Services
         // ------------------------------
-        int checkGooglePlayServices = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
+       // int checkGooglePlayServices = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
 
-        Log.d(TAG, "----> checkGooglePlayServices = " + (ConnectionResult.SUCCESS == checkGooglePlayServices));
+       // Log.d(TAG, "----> checkGooglePlayServices = " + (ConnectionResult.SUCCESS == checkGooglePlayServices));
 
-        if (checkGooglePlayServices != ConnectionResult.SUCCESS) {
+        /*if (checkGooglePlayServices != ConnectionResult.SUCCESS) {
           // google play services is missing!!!!
-          /*
-           * Returns status code indicating whether there was an error. Can be one
-           * of following in ConnectionResult: SUCCESS, SERVICE_MISSING,
-           * SERVICE_VERSION_UPDATE_REQUIRED, SERVICE_DISABLED, SERVICE_INVALID.
-           */
-          Log.e(TAG, "---Google Play Services is not available: " + GooglePlayServicesUtil.getErrorString(checkGooglePlayServices));
+         // Log.e(TAG, "---Google Play Services is not available: " + GooglePlayServicesUtil.getErrorString(checkGooglePlayServices));
 
           boolean isNeedToUpdate = false;
 
@@ -165,7 +163,7 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
 
           Log.e(TAG, "Google Play Services is not available.");
           return;
-        }
+        }*/
 
         webView.getView().setBackgroundColor(Color.TRANSPARENT);
         webView.getView().setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -206,7 +204,7 @@ public class CordovaZenrinMaps extends CordovaPlugin implements ViewTreeObserver
         //------------------------------
         if (!initialized) {
           try {
-            MapsInitializer.initialize(cordova.getActivity());
+	    MapInitializer.initialize(cordova.getActivity(), domain, consumerKey, consumerSecret);
             initialized = true;
           } catch (Exception e) {
             e.printStackTrace();

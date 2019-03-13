@@ -6,8 +6,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 
-import com.zdc.android.zms.common.ConnectionResult;
-import com.zdc.android.zms.common.GoogleApiAvailability;
+//import com.zdc.android.zms.common.ConnectionResult;
+//import com.zdc.android.zms.common.GoogleApiAvailability;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;

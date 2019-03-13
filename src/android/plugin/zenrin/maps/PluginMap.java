@@ -32,12 +32,12 @@ import com.zdc.android.zms.maps.CameraUpdate;
 import com.zdc.android.zms.maps.CameraUpdateFactory;
 import com.zdc.android.zms.maps.ZDCMap;
 import com.zdc.android.zms.maps.ZDCMap.InfoWindowAdapter;
-import com.zdc.android.zms.maps.ZDCMap.OnIndoorStateChangeListener;
+//import com.zdc.android.zms.maps.ZDCMap.OnIndoorStateChangeListener;
 import com.zdc.android.zms.maps.ZDCMap.OnInfoWindowClickListener;
 import com.zdc.android.zms.maps.ZDCMap.OnMapClickListener;
 import com.zdc.android.zms.maps.ZDCMap.OnMapLongClickListener;
 import com.zdc.android.zms.maps.ZDCMap.OnMarkerClickListener;
-import com.zdc.android.zms.maps.ZDCMap.OnMarkerDragListener;
+//import com.zdc.android.zms.maps.ZDCMap.OnMarkerDragListener;
 import com.zdc.android.zms.maps.ZDCMap.OnMyLocationButtonClickListener;
 import com.zdc.android.zms.maps.ZDCMapOptions;
 import com.zdc.android.zms.maps.MapView;
@@ -51,9 +51,9 @@ import com.zdc.android.zms.maps.model.GroundOverlay;
 import com.zdc.android.zms.maps.model.IndoorBuilding;
 import com.zdc.android.zms.maps.model.LatLng;
 import com.zdc.android.zms.maps.model.LatLngBounds;
-import com.zdc.android.zms.maps.model.MapStyleOptions;
+//import com.zdc.android.zms.maps.model.MapStyleOptions;
 import com.zdc.android.zms.maps.model.Marker;
-import com.zdc.android.zms.maps.model.PointOfInterest;
+//import com.zdc.android.zms.maps.model.PointOfInterest;
 import com.zdc.android.zms.maps.model.Polygon;
 import com.zdc.android.zms.maps.model.Polyline;
 import com.zdc.android.zms.maps.model.VisibleRegion;
@@ -80,17 +80,24 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     OnInfoWindowClickListener, OnMapClickListener, OnMapLongClickListener,
-    OnMarkerDragListener, ZenrinMap.OnMapLoadedCallback,
-    OnMyLocationButtonClickListener, OnIndoorStateChangeListener, InfoWindowAdapter,
-    ZenrinMap.OnCameraIdleListener, ZenrinMap.OnCameraMoveCanceledListener,
-    ZenrinMap.OnCameraMoveListener, ZenrinMap.OnCameraMoveStartedListener,
-    ZenrinMap.OnInfoWindowLongClickListener, ZenrinMap.OnInfoWindowCloseListener,
-    ZenrinMap.OnMyLocationClickListener, ZenrinMap.OnPoiClickListener,
+    //OnMarkerDragListener,
+    ZDCMap.OnMapLoadedCallback,
+    OnMyLocationButtonClickListener, 
+    //OnIndoorStateChangeListener,
+    InfoWindowAdapter,
+    //ZDCMap.OnCameraIdleListener, 
+    //ZDCMap.OnCameraMoveCanceledListener,
+    //ZDCMap.OnCameraMoveListener, 
+    //ZDCMap.OnCameraMoveStartedListener,
+    ZDCMap.OnInfoWindowLongClickListener,
+    //ZDCMap.OnInfoWindowCloseListener,
+    //ZDCMap.OnMyLocationClickListener, 
+    //ZDCMap.OnPoiClickListener,
     IPluginView{
 
   private LatLngBounds initCameraBounds;
   private Activity activity;
-  public ZenrinMap map;
+  public ZDCMap map;
   private MapView mapView;
   private String mapId;
   private boolean isVisible = true;
@@ -178,7 +185,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
         options.zoomControlsEnabled(controls.getBoolean("zoom"));
       }
       if (controls.has("mapToolbar")) {
-        options.mapToolbarEnabled(controls.getBoolean("mapToolbar"));
+        //options.mapToolbarEnabled(controls.getBoolean("mapToolbar"));
       }
 
 
@@ -228,7 +235,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     }
 
     // map type
-    if (!params.has("styles") &&  params.has("mapType")) {
+    /*if (!params.has("styles") &&  params.has("mapType")) {
       String typeStr = params.getString("mapType");
       int mapTypeId = -1;
       mapTypeId = typeStr.equals("MAP_TYPE_NORMAL") ? ZenrinMap.MAP_TYPE_NORMAL : mapTypeId;
@@ -239,7 +246,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
       if (mapTypeId != -1) {
         options.mapType(mapTypeId);
       }
-    }
+    }*/
 
     // initial camera position
     if (params.has("camera")) {
@@ -283,7 +290,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
 
         mapView.getMapAsync(new OnMapReadyCallback() {
           @Override
-          public void onMapReady(ZenrinMap ZenrinMap) {
+          public void onMapReady(ZDCMap ZenrinMap) {
 
             dummyMyLocationButton = new ImageView(activity);
             FrameLayout.LayoutParams lParams = new FrameLayout.LayoutParams((int)(48 * density), (int)(48 * density));
@@ -315,21 +322,21 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
 
             try {
               //styles
-              if (params.has("styles")) {
+             /* if (params.has("styles")) {
                 String styles = params.getString("styles");
                 MapStyleOptions styleOptions = new MapStyleOptions(styles);
                 map.setMapStyle(styleOptions);
                 map.setMapType(ZenrinMap.MAP_TYPE_NORMAL);
-              }
+              }*/
 
               //controls
               if (params.has("controls")) {
                 JSONObject controls = params.getJSONObject("controls");
 
-                if (controls.has("indoorPicker")) {
+               /* if (controls.has("indoorPicker")) {
                   Boolean isEnabled = controls.getBoolean("indoorPicker");
                   map.setIndoorEnabled(isEnabled);
-                }
+                }*/
 
                 if (controls.has("myLocationButton") || controls.has("myLocation")) {
                   boolean locationPermission = PermissionChecker.checkSelfPermission(cordova.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PermissionChecker.PERMISSION_GRANTED;
@@ -386,32 +393,32 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
 
                 if (preferences.has("zoom")) {
                   JSONObject zoom = preferences.getJSONObject("zoom");
-                  if (zoom.has("minZoom")) {
+                 /* if (zoom.has("minZoom")) {
                     map.setMinZoomPreference((float)zoom.getDouble("minZoom"));
                   }
                   if (zoom.has("maxZoom")) {
                     map.setMaxZoomPreference((float)zoom.getDouble("maxZoom"));
-                  }
+                  }*/
                 }
               }
 
               // Set event listener
-              map.setOnCameraIdleListener(PluginMap.this);
-              map.setOnCameraMoveCanceledListener(PluginMap.this);
-              map.setOnCameraMoveListener(PluginMap.this);
-              map.setOnCameraMoveStartedListener(PluginMap.this);
+	      //map.setOnCameraIdleListener(PluginMap.this);
+             //map.setOnCameraMoveCanceledListener(PluginMap.this);
+             //map.setOnCameraMoveListener(PluginMap.this);
+              //map.setOnCameraMoveStartedListener(PluginMap.this);
               map.setOnMapClickListener(PluginMap.this);
               map.setOnMapLongClickListener(PluginMap.this);
               map.setOnMarkerClickListener(PluginMap.this);
-              map.setOnMarkerDragListener(PluginMap.this);
+              //map.setOnMarkerDragListener(PluginMap.this);
               map.setOnMyLocationButtonClickListener(PluginMap.this);
               map.setOnMapLoadedCallback(PluginMap.this);
-              map.setOnIndoorStateChangeListener(PluginMap.this);
+              //map.setOnIndoorStateChangeListener(PluginMap.this);
               map.setOnInfoWindowClickListener(PluginMap.this);
               map.setOnInfoWindowLongClickListener(PluginMap.this);
-              map.setOnInfoWindowCloseListener(PluginMap.this);
-              map.setOnMyLocationClickListener(PluginMap.this);
-              map.setOnPoiClickListener(PluginMap.this);
+              //map.setOnInfoWindowCloseListener(PluginMap.this);
+              //map.setOnMyLocationClickListener(PluginMap.this);
+              //map.setOnPoiClickListener(PluginMap.this);
 
               //Custom info window
               map.setInfoWindowAdapter(PluginMap.this);
@@ -432,7 +439,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                   public void onResult(PluginResult pluginResult) {
 
                     if (initCameraBounds != null) {
-                      map.setOnCameraIdleListener(new ZenrinMap.OnCameraIdleListener() {
+                      /*map.setOnCameraIdleListener(new ZDCMap.OnCameraIdleListener() {
                         @Override
                         public void onCameraIdle() {
                           mapView.setVisibility(View.INVISIBLE);
@@ -441,7 +448,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                           Handler handler = new Handler();
                           handler.postDelayed(new AdjustInitCamera(params, callbackContext), 750);
                         }
-                      });
+                      });*/
                     } else {
                       mapView.setVisibility(View.VISIBLE);
                       PluginMap.this.onCameraEvent("camera_end");
@@ -451,7 +458,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                 });
               } else {
                 if (initCameraBounds != null) {
-                  map.setOnCameraIdleListener(new ZenrinMap.OnCameraIdleListener() {
+                 /* map.setOnCameraIdleListener(new ZDCMap.OnCameraIdleListener() {
                     @Override
                     public void onCameraIdle() {
                       PluginMap.this.onCameraIdle();
@@ -460,7 +467,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                       Handler handler = new Handler();
                       handler.postDelayed(new AdjustInitCamera(params, callbackContext), 750);
                     }
-                  });
+                  });*/
                 } else {
                   mapView.setVisibility(View.VISIBLE);
                   PluginMap.this.onCameraEvent("camera_end");
@@ -485,7 +492,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
   public void onStart() {
     super.onStart();
     if (mapView != null) {
-      mapView.onStart();
+      //mapView.onStart();
     }
   }
 
@@ -493,7 +500,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
   public void onStop() {
     super.onStop();
     if (mapView != null) {
-      mapView.onStop();
+      //mapView.onStop();
     }
   }
 
@@ -811,26 +818,26 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
               //Log.d("pluginMap", "--> map = " + map);
               if (map != null) {
                 try {
-                  map.setIndoorEnabled(false);
+                //  map.setIndoorEnabled(false);
                   map.setMyLocationEnabled(false);
                   map.setOnPolylineClickListener(null);
                   map.setOnPolygonClickListener(null);
-                  map.setOnIndoorStateChangeListener(null);
+                 // map.setOnIndoorStateChangeListener(null);
                   map.setOnCircleClickListener(null);
                   map.setOnGroundOverlayClickListener(null);
-                  map.setOnCameraIdleListener(null);
-                  map.setOnCameraMoveCanceledListener(null);
-                  map.setOnCameraMoveListener(null);
+                 // map.setOnCameraIdleListener(null);
+                 // map.setOnCameraMoveCanceledListener(null);
+                 // map.setOnCameraMoveListener(null);
                   map.setOnInfoWindowClickListener(null);
-                  map.setOnInfoWindowCloseListener(null);
+                 // map.setOnInfoWindowCloseListener(null);
                   map.setOnMapClickListener(null);
                   map.setOnMapLongClickListener(null);
                   map.setOnMarkerClickListener(null);
                   map.setOnMyLocationButtonClickListener(null);
                   map.setOnMapLoadedCallback(null);
-                  map.setOnMarkerDragListener(null);
-                  map.setOnMyLocationClickListener(null);
-                  map.setOnPoiClickListener(null);
+                //  map.setOnMarkerDragListener(null);
+                 // map.setOnMyLocationClickListener(null);
+                 // map.setOnPoiClickListener(null);
                 } catch (SecurityException e) {
                   e.printStackTrace();
                 }
@@ -887,7 +894,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
 
 
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-  @Override
+  //@Override
   public View getInfoContents(Marker marker) {
     //Log.d(TAG, "--->getInfoContents");
     activeMarker = marker;
@@ -897,41 +904,41 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
       return null;
     }
 
-    String markerTag = (String) marker.getTag();
-    String tmp[] = markerTag.split("_");
-    String className = tmp[0];
-    tmp = markerTag.split("-");
-    String markerId = tmp[tmp.length - 1];
+  //  String markerTag = (String) marker.getTag();
+    //String tmp[] = markerTag.split("_");
+    //String className = tmp[0];
+    //tmp = markerTag.split("-");
+    //String markerId = tmp[tmp.length - 1];
 
-    PluginEntry pluginEntry = plugins.get(mapId + "-" + className);
-    if (pluginEntry == null) {
+    //PluginEntry pluginEntry = plugins.get(mapId + "-" + className);
+    //if (pluginEntry == null) {
       //Log.d(TAG, "---> getInfoContents / marker.title = " + marker.getTitle());
-      return null;
-    }
-    MyPlugin myPlugin = (MyPlugin)pluginEntry.plugin;
+      //return null;
+    //}
+    //MyPlugin myPlugin = (MyPlugin)pluginEntry.plugin;
 
     JSONObject properties = null;
     JSONObject styles = null;
-    String propertyId = "marker_property_" + markerTag;
+    //String propertyId = "marker_property_" + markerTag;
     //Log.d(TAG, "---> getInfoContents / propertyId = " + propertyId);
 
-    if (objects.containsKey(propertyId)) {
-      properties = (JSONObject) objects.get(propertyId);
+   // if (objects.containsKey(propertyId)) {
+     // properties = (JSONObject) objects.get(propertyId);
 
-      try {
-        if (properties.has("styles")) {
-            styles = (JSONObject) properties.getJSONObject("styles");
-        }
-      } catch (JSONException e) {
-        e.printStackTrace();
-      }
-    }
+      //try {
+       // if (properties.has("styles")) {
+       //     styles = (JSONObject) properties.getJSONObject("styles");
+       // }
+     // } catch (JSONException e) {
+      //  e.printStackTrace();
+      //}
+   // }
 
-    if ((marker.getTag() + "").startsWith("markercluster_")){
-      this.onClusterEvent("info_open", marker);
-    } else {
-      this.onMarkerEvent("info_open", marker);
-    }
+    //if ((marker.getTag() + "").startsWith("markercluster_")){
+     // this.onClusterEvent("info_open", marker);
+    //} else {
+    //  this.onMarkerEvent("info_open", marker);
+   // }
 
     // Linear layout
     LinearLayout windowLayer = new LinearLayout(activity);
@@ -1026,18 +1033,18 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
 
     if (title != null) {
       if (title.contains("data:image/") && title.contains(";base64,")) {
-        tmp = title.split(",");
-        Bitmap image = PluginUtil.getBitmapFromBase64encodedImage(tmp[1]);
-        image = PluginUtil.scaleBitmapForDevice(image);
-        ImageView imageView = new ImageView(this.activity);
-        imageView.setImageBitmap(image);
+      //  tmp = title.split(",");
+       // Bitmap image = PluginUtil.getBitmapFromBase64encodedImage(tmp[1]);
+        //image = PluginUtil.scaleBitmapForDevice(image);
+       // ImageView imageView = new ImageView(this.activity);
+       // imageView.setImageBitmap(image);
 
-        if (maxWidth > 0) {
-          imageView.setMaxWidth(maxWidth);
-          imageView.setAdjustViewBounds(true);
-        }
+      //  if (maxWidth > 0) {
+         // imageView.setMaxWidth(maxWidth);
+        //  imageView.setAdjustViewBounds(true);
+       // }
 
-        windowLayer.addView(imageView);
+       // windowLayer.addView(imageView);
       } else {
         TextView textView = new TextView(this.activity);
         textView.setText(title);
@@ -1115,24 +1122,24 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
 
     JSONObject properties = null;
 
-    String markerTag = (String) marker.getTag();
-    String tmp[] = markerTag.split("_");
-    String className = tmp[0];
-    tmp = markerTag.split("-");
-    String markerId = tmp[tmp.length - 1];
+    //String markerTag = (String) marker.getTag();
+    //String tmp[] = markerTag.split("_");
+    //String className = tmp[0];
+    //tmp = markerTag.split("-");
+    //String markerId = tmp[tmp.length - 1];
 
-    String propertyId = "marker_property_" + markerTag;
+    //String propertyId = "marker_property_" + markerTag;
 
     //Log.e(TAG, "---> getInfoWindow / propertyId = " + propertyId);
     //Log.e(TAG, "---> getInfoWindow / pluginEntryId = " + mapId + "-" + className);
-    PluginEntry pluginEntry = plugins.get(mapId + "-" + className);
-    if (pluginEntry == null) {
-      Log.e(TAG, "---> getInfoWindow / pluginEntry is null");
-      return null;
-    }
-    MyPlugin myPlugin = (MyPlugin)pluginEntry.plugin;
+   // PluginEntry pluginEntry = plugins.get(mapId + "-" + className);
+    //if (pluginEntry == null) {
+     // Log.e(TAG, "---> getInfoWindow / pluginEntry is null");
+    //  return null;
+  //  }
+    //MyPlugin myPlugin = (MyPlugin)pluginEntry.plugin;
 
-    if (objects.containsKey(propertyId)) {
+    /*if (objects.containsKey(propertyId)) {
       properties = (JSONObject) objects.get(propertyId);
       try {
         if (marker.getTitle() == null && marker.getSnippet() == null) {
@@ -1154,7 +1161,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     } else {
       Log.e(TAG, "---> getInfoWindow / can not find the property");
     }
-    return null;
+    return null;*/
   }
 
 
@@ -1176,14 +1183,14 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
         results.styles = params.getString("styles");
       } else {
         // map type
-        results.MAP_TYPE_ID = -1;
+       // results.MAP_TYPE_ID = -1;
         if (!params.has("styles") && params.has("mapType")) {
           String typeStr = params.getString("mapType");
-          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_NORMAL") ? ZenrinMap.MAP_TYPE_NORMAL : results.MAP_TYPE_ID;
-          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_HYBRID") ? ZenrinMap.MAP_TYPE_HYBRID : results.MAP_TYPE_ID;
-          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_SATELLITE") ? ZenrinMap.MAP_TYPE_SATELLITE : results.MAP_TYPE_ID;
-          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_TERRAIN") ? ZenrinMap.MAP_TYPE_TERRAIN : results.MAP_TYPE_ID;
-          results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_NONE") ? ZenrinMap.MAP_TYPE_NONE : results.MAP_TYPE_ID;
+         // results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_NORMAL") ? ZenrinMap.MAP_TYPE_NORMAL : results.MAP_TYPE_ID;
+         // results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_HYBRID") ? ZenrinMap.MAP_TYPE_HYBRID : results.MAP_TYPE_ID;
+         // results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_SATELLITE") ? ZenrinMap.MAP_TYPE_SATELLITE : results.MAP_TYPE_ID;
+         // results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_TERRAIN") ? ZenrinMap.MAP_TYPE_TERRAIN : results.MAP_TYPE_ID;
+         // results.MAP_TYPE_ID = typeStr.equals("MAP_TYPE_NONE") ? ZenrinMap.MAP_TYPE_NONE : results.MAP_TYPE_ID;
         }
       }
 
@@ -1251,11 +1258,11 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
 
             //styles
             if (results.styles != null) {
-              MapStyleOptions styleOptions = new MapStyleOptions(results.styles);
-              map.setMapStyle(styleOptions);
-              map.setMapType(ZenrinMap.MAP_TYPE_NORMAL);
+             // MapStyleOptions styleOptions = new MapStyleOptions(results.styles);
+              //map.setMapStyle(styleOptions);
+              //map.setMapType(ZenrinMap.MAP_TYPE_NORMAL);
             } else if (results.MAP_TYPE_ID != -1) {
-              map.setMapType(results.MAP_TYPE_ID);
+             // map.setMapType(results.MAP_TYPE_ID);
             }
 
             JSONObject params = null;
@@ -1292,10 +1299,10 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
               if (preferences.has("zoom")) {
                 JSONObject zoom = preferences.getJSONObject("zoom");
                 if (zoom.has("minZoom")) {
-                  map.setMinZoomPreference((float)zoom.getDouble("minZoom"));
+                //  map.setMinZoomPreference((float)zoom.getDouble("minZoom"));
                 }
                 if (zoom.has("maxZoom")) {
-                  map.setMaxZoomPreference((float)zoom.getDouble("maxZoom"));
+                 // map.setMaxZoomPreference((float)zoom.getDouble("maxZoom"));
                 }
               }
             }
@@ -1329,10 +1336,10 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                 settings.setZoomControlsEnabled(controls.getBoolean("zoom"));
               }
               if (controls.has("indoorPicker")) {
-                settings.setIndoorLevelPickerEnabled(controls.getBoolean("indoorPicker"));
+                //settings.setIndoorLevelPickerEnabled(controls.getBoolean("indoorPicker"));
               }
               if (controls.has("mapToolbar")) {
-                settings.setMapToolbarEnabled(controls.getBoolean("mapToolbar"));
+               // settings.setMapToolbarEnabled(controls.getBoolean("mapToolbar"));
               }
               if (controls.has("myLocation") || controls.has("myLocationButton")) {
                 cordova.getThreadPool().submit(new Runnable() {
@@ -1372,18 +1379,18 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
   }
 
   public void getFocusedBuilding(final JSONArray args, final CallbackContext callbackContext) throws JSONException {
-    this.activity.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-        IndoorBuilding focusedBuilding = map.getFocusedBuilding();
-        if (focusedBuilding != null) {
-          JSONObject result = PluginUtil.convertIndoorBuildingToJson(focusedBuilding);
-          callbackContext.success(result);
-        } else {
-          callbackContext.success(-1);
-        }
-      }
-    });
+    //this.activity.runOnUiThread(new Runnable() {
+    //  @Override
+     // public void run() {
+      //  IndoorBuilding focusedBuilding = map.getFocusedBuilding();
+      //  if (focusedBuilding != null) {
+      //    JSONObject result = PluginUtil.convertIndoorBuildingToJson(focusedBuilding);
+       //   callbackContext.success(result);
+     //   } else {
+      //    callbackContext.success(-1);
+      //  }
+     // }
+  //  });
   }
 
   /**
@@ -1628,7 +1635,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
             } catch (Exception e) {
               e.printStackTrace();
             }
-            map.setOnCameraIdleListener(new ZenrinMap.OnCameraIdleListener() {
+            /*map.setOnCameraIdleListener(new ZDCMap.OnCameraIdleListener() {
               @Override
               public void onCameraIdle() {
                 PluginMap.this.onCameraIdle();
@@ -1637,7 +1644,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                 builder.target(map.getCameraPosition().target);
                 map.moveCamera(CameraUpdateFactory.newCameraPosition(builder.build()));
               }
-            });
+            });*/
           } else {
             final Builder builder = CameraPosition.builder(map.getCameraPosition());
             if (mCameraPos.has("tilt")) {
@@ -1664,7 +1671,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
             builder.zoom(map.getCameraPosition().zoom);
             builder.target(map.getCameraPosition().target);
 
-            map.setOnCameraIdleListener(new ZenrinMap.OnCameraIdleListener() {
+           /* map.setOnCameraIdleListener(new ZDCMap.OnCameraIdleListener() {
               @Override
               public void onCameraIdle() {
                 PluginMap.this.onCameraIdle();
@@ -1673,7 +1680,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
                 builder.target(map.getCameraPosition().target);
                 map.moveCamera(CameraUpdateFactory.newCameraPosition(builder.build()));
               }
-            });
+            });*/
           }
           mCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
         }
@@ -1879,7 +1886,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     this.activity.runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        map.setIndoorEnabled(isEnabled);
+       // map.setIndoorEnabled(isEnabled);
         callbackContext.success();
       }
     });
@@ -1896,7 +1903,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     this.activity.runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        map.setTrafficEnabled(isEnabled);
+        //map.setTrafficEnabled(isEnabled);
         callbackContext.success();
       }
     });
@@ -1928,24 +1935,24 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
    */
   public void setMapTypeId(JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
-    int mapTypeId = -1;
-    String typeStr = args.getString(0);
-    mapTypeId = typeStr.equals("MAP_TYPE_NORMAL") ? ZenrinMap.MAP_TYPE_NORMAL : mapTypeId;
-    mapTypeId = typeStr.equals("MAP_TYPE_HYBRID") ? ZenrinMap.MAP_TYPE_HYBRID : mapTypeId;
-    mapTypeId = typeStr.equals("MAP_TYPE_SATELLITE") ? ZenrinMap.MAP_TYPE_SATELLITE : mapTypeId;
-    mapTypeId = typeStr.equals("MAP_TYPE_TERRAIN") ? ZenrinMap.MAP_TYPE_TERRAIN : mapTypeId;
-    mapTypeId = typeStr.equals("MAP_TYPE_NONE") ? ZenrinMap.MAP_TYPE_NONE : mapTypeId;
+    //int mapTypeId = -1;
+    //String typeStr = args.getString(0);
+    //mapTypeId = typeStr.equals("MAP_TYPE_NORMAL") ? ZenrinMap.MAP_TYPE_NORMAL : mapTypeId;
+   // mapTypeId = typeStr.equals("MAP_TYPE_HYBRID") ? ZenrinMap.MAP_TYPE_HYBRID : mapTypeId;
+   ///mapTypeId = typeStr.equals("MAP_TYPE_SATELLITE") ? ZenrinMap.MAP_TYPE_SATELLITE : mapTypeId;
+    //mapTypeId = typeStr.equals("MAP_TYPE_TERRAIN") ? ZenrinMap.MAP_TYPE_TERRAIN : mapTypeId;
+    //mapTypeId = typeStr.equals("MAP_TYPE_NONE") ? ZenrinMap.MAP_TYPE_NONE : mapTypeId;
 
-    if (mapTypeId == -1) {
-      callbackContext.error("Unknown MapTypeID is specified:" + typeStr);
-      return;
-    }
+    //if (mapTypeId == -1) {
+      //callbackContext.error("Unknown MapTypeID is specified:" + typeStr);
+     // return;
+   // }
 
-    final int myMapTypeId = mapTypeId;
+    //final int myMapTypeId = mapTypeId;
     this.activity.runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        map.setMapType(myMapTypeId);
+        map.setMapType("its-mo");
         callbackContext.success();
       }
     });
@@ -1959,7 +1966,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
    * @param callbackContext
    */
   public void myAnimateCamera(final String mapId, final CameraUpdate cameraUpdate, final int durationMS, final CallbackContext callbackContext) {
-    final ZenrinMap.CancelableCallback callback = new ZenrinMap.CancelableCallback() {
+    final ZDCMap.CancelableCallback callback = new ZDCMap.CancelableCallback() {
       @Override
       public void onFinish() {
         callbackContext.success(ANIMATE_CAMERA_DONE);
@@ -2030,11 +2037,11 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     }
     final boolean finalUncompress = uncompress;
 
-    this.activity.runOnUiThread(new Runnable() {
+   /* this.activity.runOnUiThread(new Runnable() {
       @Override
       public void run() {
 
-        map.snapshot(new ZenrinMap.SnapshotReadyCallback() {
+        map.snapshot(new ZDCMap.SnapshotReadyCallback() {
 
           @Override
           public void onSnapshotReady(final Bitmap image) {
@@ -2058,7 +2065,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
           }
         });
       }
-    });
+    });*/
 
   }
   public void fromLatLngToPoint(final JSONArray args, final CallbackContext callbackContext) throws JSONException {
@@ -2183,7 +2190,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
   public boolean onMarkerClick(Marker marker) {
     //Log.d(TAG, "---> onMarkerClick / marker.tag = " + marker.getTag());
 
-    JSONObject properties = null;
+    /*JSONObject properties = null;
     String clusterId_markerId = marker.getTag() + "";
     if (clusterId_markerId.contains("markercluster_")) {
       if (clusterId_markerId.contains("-marker_")) {
@@ -2231,83 +2238,82 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     }
 
     marker.showInfoWindow();
-    return true;
-    //return false;
+    return true;*/
   }
 
   @Override
   public void onInfoWindowClick(Marker marker) {
     activeMarker = marker;
     syncInfoWndPosition();
-    String markerTag = marker.getTag() + "";
+    /*String markerTag = marker.getTag() + "";
     if (markerTag.startsWith("markercluster_")){
       this.onClusterEvent("info_click", marker);
     } else {
       this.onMarkerEvent("info_click", marker);
-    }
+    }*/
   }
 
-  @Override
+  //@Override
   public void onMarkerDrag(Marker marker) {
     if (marker.equals(activeMarker)) {
       syncInfoWndPosition();
     }
-    if ((marker.getTag() + "").startsWith("markercluster_")){
+   /* if ((marker.getTag() + "").startsWith("markercluster_")){
       this.onClusterEvent("marker_drag", marker);
     } else {
       this.onMarkerEvent("marker_drag", marker);
-    }
+    }*/
   }
 
-  @Override
+  //@Override
   public void onMarkerDragEnd(Marker marker) {
     if (marker.equals(activeMarker)) {
       syncInfoWndPosition();
     }
-    if ((marker.getTag() + "").startsWith("markercluster_")){
+   /* if ((marker.getTag() + "").startsWith("markercluster_")){
       this.onClusterEvent("marker_drag_end", marker);
     } else {
       this.onMarkerEvent("marker_drag_end", marker);
-    }
+    }*/
   }
 
-  @Override
+  //@Override
   public void onMarkerDragStart(Marker marker) {
     if (marker.equals(activeMarker)) {
       syncInfoWndPosition();
     }
-    if ((marker.getTag() + "").startsWith("markercluster_")){
+    /*if ((marker.getTag() + "").startsWith("markercluster_")){
       this.onClusterEvent("marker_drag_start", marker);
     } else {
       this.onMarkerEvent("marker_drag_start", marker);
-    }
+    }*/
   }
 
   @Override
   public void onInfoWindowLongClick(Marker marker) {
     activeMarker = marker;
     syncInfoWndPosition();
-    if ((marker.getTag() + "").startsWith("markercluster_")){
+    /*if ((marker.getTag() + "").startsWith("markercluster_")){
       this.onClusterEvent("info_long_click", marker);
     } else {
       this.onMarkerEvent("info_long_click", marker);
-    }
+    }*/
   }
 
-  @Override
+ // @Override
   public void onInfoWindowClose(Marker marker) {
     //Log.d(TAG, "--->onInfoWindowClose");
     boolean useHtmlInfoWnd = marker.getTitle() == null &&
                              marker.getSnippet() == null;
     if (useHtmlInfoWnd) {
-      String markerTag = marker.getTag() + "";
-      if (markerTag.startsWith("markercluster_")){
-        if (markerTag.contains("-marker_")) {
-          this.onClusterEvent("info_close", marker);
-        }
-      } else {
-        this.onMarkerEvent("info_close", marker);
-      }
+      //String markerTag = marker.getTag() + "";
+      //if (markerTag.startsWith("markercluster_")){
+       // if (markerTag.contains("-marker_")) {
+         // this.onClusterEvent("info_close", marker);
+       // }
+      //} else {
+       // this.onMarkerEvent("info_close", marker);
+      //}
     } else {
       this.onMarkerEvent("info_close", marker);
     }
@@ -2331,21 +2337,21 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
    * @param marker
    */
   public void onMarkerEvent(String eventName, Marker marker) {
-    if (marker.getTag() == null) {
-      return;
-    }
-    LatLng latLng = marker.getPosition();
+    //if (marker.getTag() == null) {
+      //return;
+    //}
+    //LatLng latLng = marker.getPosition();
 
-    String markerTag = (String) marker.getTag();
-    String tmp[] = markerTag.split("_");
-    tmp = markerTag.split("-");
-    String markerId = tmp[tmp.length - 1];
-    String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: '%s', callback:'_onMarkerEvent', args:['%s', new plugin.zenrin.maps.LatLng(%f, %f)]});}",
-          mapId, mapId, eventName, markerId, latLng.latitude, latLng.longitude);
-    jsCallback(js);
+    //String markerTag = (String) marker.getTag();
+    //String tmp[] = markerTag.split("_");
+   // tmp = markerTag.split("-");
+    //String markerId = tmp[tmp.length - 1];
+    //String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: '%s', callback:'_onMarkerEvent', args:['%s', new plugin.zenrin.maps.LatLng(%f, %f)]});}",
+     //     mapId, mapId, eventName, markerId, latLng.latitude, latLng.longitude);
+    //jsCallback(js);
   }
   public void onClusterEvent(String eventName, Marker marker) {
-    if (marker.getTag() == null) {
+   /* if (marker.getTag() == null) {
       return;
     }
     LatLng latLng = marker.getPosition();
@@ -2356,7 +2362,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     String markerId = tmp[1];
     String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: '%s', callback:'_onClusterEvent', args:['%s', '%s', new plugin.zenrin.maps.LatLng(%f, %f)]});}",
             mapId, mapId, eventName, clusterId, markerId, latLng.latitude, latLng.longitude);
-    jsCallback(js);
+    jsCallback(js);*/
   }
   public void syncInfoWndPosition() {
     if (activeMarker == null) {
@@ -2377,20 +2383,20 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     jsCallback(js);
   }
   public void onPolylineClick(Polyline polyline, LatLng point) {
-    String overlayId = "polyline_" + polyline.getTag();
-    this.onOverlayEvent("polyline_click", overlayId, point);
+  //  String overlayId = "polyline_" + polyline.getTag();
+   // this.onOverlayEvent("polyline_click", overlayId, point);
   }
   public void onPolygonClick(Polygon polygon, LatLng point) {
-    String overlayId = "polygon_" + polygon.getTag();
-    this.onOverlayEvent("polygon_click", overlayId, point);
+    //String overlayId = "polygon_" + polygon.getTag();
+    //this.onOverlayEvent("polygon_click", overlayId, point);
   }
   public void onCircleClick(Circle circle, LatLng point) {
-    String overlayId = "circle_" + circle.getTag();
-    this.onOverlayEvent("circle_click", overlayId, point);
+   // String overlayId = "circle_" + circle.getTag();
+   // this.onOverlayEvent("circle_click", overlayId, point);
   }
   public void onGroundOverlayClick(GroundOverlay groundOverlay, LatLng point) {
-    String overlayId = "groundoverlay_" + groundOverlay.getTag();
-    this.onOverlayEvent("groundoverlay_click", overlayId, point);
+    //String overlayId = "groundoverlay_" + groundOverlay.getTag();
+   // this.onOverlayEvent("groundoverlay_click", overlayId, point);
   }
 
   /**
@@ -2568,7 +2574,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     return false;
   }
 
-  @Override
+ // @Override
   public void onMyLocationClick(@NonNull Location location) {
     PluginLocationService.setLastLocation(location);
     try {
@@ -2651,7 +2657,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     }
   }
 
-  @Override
+//  @Override
   public void onCameraIdle() {
     projection = map.getProjection();
     if (this.isDragging) {
@@ -2661,7 +2667,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     onCameraEvent("camera_move_end");
   }
 
-  @Override
+ // @Override
   public void onCameraMoveCanceled() {
     projection = map.getProjection();
     if (this.isDragging) {
@@ -2671,7 +2677,7 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     onCameraEvent("camera_move_end");
   }
 
-  @Override
+//  @Override
   public void onCameraMove() {
     projection = map.getProjection();
     if (this.isDragging) {
@@ -2680,23 +2686,23 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     onCameraEvent("camera_move");
   }
 
-  @Override
+//  @Override
   public void onCameraMoveStarted(final int reason) {
     projection = map.getProjection();
 
     // In order to pass the gesture parameter to the callbacks,
     // use the _onMapEvent callback instead of the _onCameraEvent callback.
-    this.isDragging = reason == REASON_GESTURE;
+    //this.isDragging = reason == REASON_GESTURE;
 
-    if (this.isDragging) {
-      onMapEvent("map_drag_start");
-    }
+    //if (this.isDragging) {
+      //onMapEvent("map_drag_start");
+    //}
     onCameraEvent("camera_move_start");
 
 
   }
 
-  @Override
+  //@Override
   public void onIndoorBuildingFocused() {
     IndoorBuilding building = map.getFocusedBuilding();
     String jsonStr = "undefined";
@@ -2721,12 +2727,12 @@ public class PluginMap extends MyPlugin implements OnMarkerClickListener,
     jsCallback(String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName:'indoor_level_activated', callback:'_onMapEvent', args: [%s]});}", mapId, mapId, jsonStr));
   }
   @Override
-  public void onPoiClick(PointOfInterest pointOfInterest) {
+  /*public void onPoiClick(PointOfInterest pointOfInterest) {
 
     String js = String.format(Locale.ENGLISH, "javascript:if('%s' in plugin.zenrin.maps){plugin.zenrin.maps['%s']({evtName: '%s', callback:'_onMapEvent', args:['%s', '%s', new plugin.zenrin.maps.LatLng(%f, %f)]});}",
     mapId, mapId, "poi_click", pointOfInterest.placeId, pointOfInterest.name, pointOfInterest.latLng.latitude, pointOfInterest.latLng.longitude);
     jsCallback(js);
-  }
+  }*/
 
   private void jsCallback(final String js) {
     this.activity.runOnUiThread(new Runnable() {

@@ -3,8 +3,8 @@ package plugin.zenrin.maps;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
-import com.zdc.android.zms.maps.model.BitmapDescriptor;
-import com.zdc.android.zms.maps.model.BitmapDescriptorFactory;
+//import com.zdc.android.zms.maps.model.BitmapDescriptor;
+//import com.zdc.android.zms.maps.model.BitmapDescriptorFactory;
 import com.zdc.android.zms.maps.model.GroundOverlay;
 import com.zdc.android.zms.maps.model.GroundOverlayOptions;
 import com.zdc.android.zms.maps.model.LatLngBounds;

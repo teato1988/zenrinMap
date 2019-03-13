@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import za.co.twyst.tbxml.TBXML;
+//import za.co.twyst.tbxml.TBXML;
 
 
 public class PluginKmlOverlay extends MyPlugin implements MyPluginInterface {
@@ -105,7 +105,7 @@ public class PluginKmlOverlay extends MyPlugin implements MyPluginInterface {
 
   private Bundle loadKml(String urlStr) {
 
-    InputStream inputStream = getKmlContents(urlStr);
+   /* InputStream inputStream = getKmlContents(urlStr);
     if (inputStream == null) {
       return null;
     }
@@ -159,10 +159,10 @@ public class PluginKmlOverlay extends MyPlugin implements MyPluginInterface {
     } catch (Exception e) {
       e.printStackTrace();
       return null;
-    }
+    }*/
   }
 
-  class KmlParserClass {
+  /*class KmlParserClass {
     public Bundle styleHolder = new Bundle();
     public Bundle schemaHolder = new Bundle();
 
@@ -319,7 +319,7 @@ public class PluginKmlOverlay extends MyPlugin implements MyPluginInterface {
 
       return result;
     }
-  }
+  }*/
 
 
   private InputStream getKmlContents(String urlStr) {

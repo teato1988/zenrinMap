@@ -5,16 +5,16 @@ import android.graphics.Point;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zdc.android.zms.maps.OnStreetViewPanoramaReadyCallback;
-import com.zdc.android.zms.maps.StreetViewPanorama;
-import com.zdc.android.zms.maps.StreetViewPanoramaOptions;
-import com.zdc.android.zms.maps.StreetViewPanoramaView;
+//import com.zdc.android.zms.maps.OnStreetViewPanoramaReadyCallback;
+//import com.zdc.android.zms.maps.StreetViewPanorama;
+//import com.zdc.android.zms.maps.StreetViewPanoramaOptions;
+//import com.zdc.android.zms.maps.StreetViewPanoramaView;
 import com.zdc.android.zms.maps.model.LatLng;
-import com.zdc.android.zms.maps.model.StreetViewPanoramaCamera;
-import com.zdc.android.zms.maps.model.StreetViewPanoramaLink;
-import com.zdc.android.zms.maps.model.StreetViewPanoramaLocation;
-import com.zdc.android.zms.maps.model.StreetViewPanoramaOrientation;
-import com.zdc.android.zms.maps.model.StreetViewSource;
+//import com.zdc.android.zms.maps.model.StreetViewPanoramaCamera;
+//import com.zdc.android.zms.maps.model.StreetViewPanoramaLink;
+//import com.zdc.android.zms.maps.model.StreetViewPanoramaLocation;
+//import com.zdc.android.zms.maps.model.StreetViewPanoramaOrientation;
+//import com.zdc.android.zms.maps.model.StreetViewSource;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -27,13 +27,14 @@ import java.util.Locale;
 
 
 public class PluginStreetViewPanorama extends MyPlugin implements
-    IPluginView, StreetViewPanorama.OnStreetViewPanoramaCameraChangeListener,
-    StreetViewPanorama.OnStreetViewPanoramaChangeListener,
-    StreetViewPanorama.OnStreetViewPanoramaClickListener {
+    //StreetViewPanorama.OnStreetViewPanoramaCameraChangeListener,
+    //StreetViewPanorama.OnStreetViewPanoramaChangeListener,
+    //StreetViewPanorama.OnStreetViewPanoramaClickListener 
+    IPluginView{
 
   private Activity mActivity;
-  private StreetViewPanoramaView panoramaView;
-  private StreetViewPanorama panorama;
+  //private StreetViewPanoramaView panoramaView;
+  //private StreetViewPanorama panorama;
   private String panoramaId;
   private boolean isVisible = true;
   private boolean isClickable = true;
@@ -355,7 +356,7 @@ public class PluginStreetViewPanorama extends MyPlugin implements
     });
   }
 
-  @Override
+ /* @Override
   public void onStreetViewPanoramaCameraChange(StreetViewPanoramaCamera streetViewPanoramaCamera) {
     try {
       JSONObject camera = new JSONObject();
@@ -380,7 +381,7 @@ public class PluginStreetViewPanorama extends MyPlugin implements
       e.printStackTrace();
     }
 
-  }
+  }*/
 
   private void jsCallback(final String js) {
     this.mActivity.runOnUiThread(new Runnable() {
@@ -391,7 +392,7 @@ public class PluginStreetViewPanorama extends MyPlugin implements
     });
   }
 
-  @Override
+  /*@Override
   public void onStreetViewPanoramaChange(StreetViewPanoramaLocation streetViewPanoramaLocation) {
 
     try {
@@ -423,9 +424,9 @@ public class PluginStreetViewPanorama extends MyPlugin implements
       e.printStackTrace();
     }
 
-  }
+  }*/
 
-  @Override
+  /*@Override
   public void onStreetViewPanoramaClick(StreetViewPanoramaOrientation streetViewPanoramaOrientation) {
 
     try {
@@ -452,6 +453,6 @@ public class PluginStreetViewPanorama extends MyPlugin implements
       e.printStackTrace();
     }
 
-  }
+  }*/
 
 }

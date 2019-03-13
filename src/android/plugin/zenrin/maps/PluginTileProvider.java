@@ -15,8 +15,8 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 
-import com.zdc.android.zms.maps.model.Tile;
-import com.zdc.android.zms.maps.model.TileProvider;
+//import com.zdc.android.zms.maps.model.Tile;
+//import com.zdc.android.zms.maps.model.TileProvider;
 
 import org.apache.cordova.CordovaWebView;
 
@@ -31,7 +31,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 
-public class PluginTileProvider implements TileProvider  {
+public class PluginTileProvider{
   private final String TAG = "TileProvider";
   private int tileSize = 512;
   private Paint tilePaint = new Paint(Paint.FILTER_BITMAP_FLAG);
@@ -127,7 +127,7 @@ public class PluginTileProvider implements TileProvider  {
     this.listener = listener;
   }
 
-  @Override
+  /*@Override
   public Tile getTile(int x, int y, int zoom) {
     if (isRemoved) {
       return null;
@@ -365,7 +365,7 @@ public class PluginTileProvider implements TileProvider  {
       e.printStackTrace();
     }
     return null;
-  }
+  }*/
 
   private byte[] bitmapToByteArray(Bitmap bitmap) {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

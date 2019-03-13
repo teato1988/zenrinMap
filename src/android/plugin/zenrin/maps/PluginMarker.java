@@ -1,4 +1,4 @@
-package plugin.google.maps;
+package plugin.zenrin.maps;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -17,8 +17,8 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.zdc.android.zms.maps.Projection;
-import com.zdc.android.zms.maps.model.BitmapDescriptor;
-import com.zdc.android.zms.maps.model.BitmapDescriptorFactory;
+//import com.zdc.android.zms.maps.model.BitmapDescriptor;
+//import com.zdc.android.zms.maps.model.BitmapDescriptorFactory;
 import com.zdc.android.zms.maps.model.LatLng;
 import com.zdc.android.zms.maps.model.Marker;
 import com.zdc.android.zms.maps.model.MarkerOptions;

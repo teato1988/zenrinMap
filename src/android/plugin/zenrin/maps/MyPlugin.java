@@ -11,7 +11,7 @@ import com.zdc.android.zms.maps.model.LatLng;
 import com.zdc.android.zms.maps.model.Marker;
 import com.zdc.android.zms.maps.model.Polygon;
 import com.zdc.android.zms.maps.model.Polyline;
-import com.zdc.android.zms.maps.model.TileOverlay;
+//import com.zdc.android.zms.maps.model.TileOverlay;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -34,7 +34,7 @@ public class MyPlugin extends CordovaPlugin implements MyPluginInterface {
   protected static ExecutorService executorService = null;
 
   public CordovaZenrinMaps mapCtrl = null;
-  public ZenrinMap map = null;
+  public ZDCMap map = null;
   public PluginMap pluginMap = null;
   protected boolean isRemoved = false;
   protected static float density = Resources.getSystem().getDisplayMetrics().density;
@@ -175,13 +175,13 @@ public class MyPlugin extends CordovaPlugin implements MyPluginInterface {
     }
     return (Polygon)pluginMap.objects.get(id);
   }
-  protected synchronized TileOverlay getTileOverlay(String id) {
-    if (!pluginMap.objects.containsKey(id)) {
+  //protected synchronized TileOverlay getTileOverlay(String id) {
+    //if (!pluginMap.objects.containsKey(id)) {
       //Log.e(TAG, "---> can not find the tileoverlay : " + id);
-      return null;
-    }
-    return (TileOverlay)pluginMap.objects.get(id);
-  }
+      //return null;
+    //}
+    //return (TileOverlay)pluginMap.objects.get(id);
+  //}
 
   protected void setInt(String methodName, String id, int value, final CallbackContext callbackContext) throws JSONException {
     this.setValue(methodName, int.class, id, value, callbackContext);

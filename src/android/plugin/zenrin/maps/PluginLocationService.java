@@ -13,14 +13,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 
-import com.zdc.android.zms.common.ConnectionResult;
-import com.zdc.android.zms.common.api.GoogleApiClient;
-import com.zdc.android.zms.location.LocationCallback;
-import com.zdc.android.zms.location.LocationRequest;
-import com.zdc.android.zms.location.LocationResult;
-import com.zdc.android.zms.location.LocationServices;
-import com.zdc.android.zms.tasks.OnFailureListener;
-import com.zdc.android.zms.tasks.OnSuccessListener;
+//import com.zdc.android.zms.common.ConnectionResult;
+//import com.zdc.android.zms.common.api.GoogleApiClient;
+//import com.zdc.android.zms.location.LocationCallback;
+//import com.zdc.android.zms.location.LocationRequest;
+//import com.zdc.android.zms.location.LocationResult;
+//import com.zdc.android.zms.location.LocationServices;
+//import com.zdc.android.zms.tasks.OnFailureListener;
+//import com.zdc.android.zms.tasks.OnSuccessListener;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -45,7 +45,7 @@ public class PluginLocationService extends CordovaPlugin {
   private final int ACTIVITY_LOCATION_DIALOG = 0x7f999900; // Invite the location dialog using Google Play Services
   private final int ACTIVITY_LOCATION_PAGE = 0x7f999901;   // Open the location settings page
 
-  private GoogleApiClient googleApiClient = null;
+  //private GoogleApiClient googleApiClient = null;
 
   public void initialize(final CordovaInterface cordova, final CordovaWebView webView) {
     super.initialize(cordova, webView);
@@ -167,9 +167,9 @@ public class PluginLocationService extends CordovaPlugin {
         regularAccuracyRequestList.add(callbackContext);
       }
 
-      if (googleApiClient != null && googleApiClient.isConnecting()) {
+      /*if (googleApiClient != null && googleApiClient.isConnecting()) {
         return;
-      }
+      }*/
     }
 
     // Request geolocation permission.
@@ -236,7 +236,7 @@ public class PluginLocationService extends CordovaPlugin {
       return;
     }
 
-    if (googleApiClient == null) {
+    /*if (googleApiClient == null) {
 
       googleApiClient = new GoogleApiClient.Builder(activity)
         .addApi(LocationServices.API)
@@ -284,7 +284,7 @@ public class PluginLocationService extends CordovaPlugin {
     } else {
       Log.e(TAG, "===> googleApiClient.isConnected() is not connected");
       googleApiClient.connect();
-    }
+    }*/
   }
 
   private void requestLocation() {
@@ -301,9 +301,9 @@ public class PluginLocationService extends CordovaPlugin {
             }
             regularAccuracyRequestList.clear();
 
-            if (regularAccuracyRequestList.size() == 0 && highAccuracyRequestList.size() == 0) {
+           /* if (regularAccuracyRequestList.size() == 0 && highAccuracyRequestList.size() == 0) {
               googleApiClient.disconnect();
-            }
+            }*/
           }
 
         }
@@ -320,9 +320,9 @@ public class PluginLocationService extends CordovaPlugin {
               callback.sendPluginResult(pluginResult);
             }
             highAccuracyRequestList.clear();
-            if (regularAccuracyRequestList.size() == 0 && highAccuracyRequestList.size() == 0) {
+            /*if (regularAccuracyRequestList.size() == 0 && highAccuracyRequestList.size() == 0) {
               googleApiClient.disconnect();
-            }
+            }*/
           }
 
         }
@@ -452,12 +452,12 @@ public class PluginLocationService extends CordovaPlugin {
   private void _requestLocationUpdate(final boolean isRetry, final boolean enableHighAccuracy, final CallbackContext callbackContext) {
 
     Log.d(TAG, "---->_requestLocationUpdate (isRetry = " + isRetry + ")");
-    int priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY;
+    //int priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY;
     if (enableHighAccuracy || "Genymotion".equals(Build.MANUFACTURER)) {
-      priority = LocationRequest.PRIORITY_HIGH_ACCURACY;
+      //priority = LocationRequest.PRIORITY_HIGH_ACCURACY;
     }
 
-    if (!isRetry) {
+    /*if (!isRetry) {
       LocationServices.getFusedLocationProviderClient(cordova.getActivity())
         .getLastLocation()
         .addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -505,16 +505,16 @@ public class PluginLocationService extends CordovaPlugin {
           }
         });
       return;
-    }
+    }*/
 
-    LocationRequest locationRequest= LocationRequest.create()
+    /*LocationRequest locationRequest= LocationRequest.create()
         .setNumUpdates(2)
         .setSmallestDisplacement(0)
         .setPriority(priority)
         .setExpirationDuration(12000)
-        .setMaxWaitTime(6000);
+        .setMaxWaitTime(6000);*/
 
-    LocationServices.getFusedLocationProviderClient(cordova.getActivity()).requestLocationUpdates(locationRequest, new LocationCallback() {
+    /*LocationServices.getFusedLocationProviderClient(cordova.getActivity()).requestLocationUpdates(locationRequest, new LocationCallback() {
           @Override
           public void onLocationResult(LocationResult locationResult) {
             Log.d(TAG, "---->onLocationResult");
@@ -552,7 +552,7 @@ public class PluginLocationService extends CordovaPlugin {
 
             googleApiClient.disconnect();
           }
-        }, Looper.myLooper());
+        }, Looper.myLooper());*/
 
   }
 
